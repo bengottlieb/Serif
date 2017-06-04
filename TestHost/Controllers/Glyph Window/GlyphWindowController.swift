@@ -23,6 +23,7 @@ class GlyphWindowController: NSWindowController {
 	
     override func windowDidLoad() {
         super.windowDidLoad()
+		self.glyphView.scaleToFont = false
 		self.glyphView.showPoints = true
 		self.glyphView.glyph = self.glyph
     }

@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="GlyphWindowController" customModule="FontExplorer" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="GlyphWindowController" customModule="TestHost" customModuleProvider="target">
             <connections>
                 <outlet property="glyphView" destination="yBo-G3-pI1" id="8UN-Su-4dc"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -23,15 +23,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="482" height="453"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="yBo-G3-pI1" customClass="GlyphView" customModule="FontExplorer" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="482" height="453"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="yBo-G3-pI1" customClass="GlyphView" customModule="TestHost" customModuleProvider="target">
+                        <rect key="frame" x="10" y="10" width="462" height="433"/>
                     </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="yBo-G3-pI1" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="7OZ-sm-4UI"/>
-                    <constraint firstAttribute="trailing" secondItem="yBo-G3-pI1" secondAttribute="trailing" id="8hH-dy-PWJ"/>
-                    <constraint firstAttribute="bottom" secondItem="yBo-G3-pI1" secondAttribute="bottom" id="bVF-ga-23q"/>
-                    <constraint firstItem="yBo-G3-pI1" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="cve-c3-GZI"/>
+                    <constraint firstAttribute="trailing" secondItem="yBo-G3-pI1" secondAttribute="trailing" constant="10" id="Dzy-lq-x5K"/>
+                    <constraint firstItem="yBo-G3-pI1" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="10" id="VMo-q4-RCZ"/>
+                    <constraint firstAttribute="bottom" secondItem="yBo-G3-pI1" secondAttribute="bottom" constant="10" id="n2E-jo-4e9"/>
+                    <constraint firstItem="yBo-G3-pI1" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="10" id="v5Q-PF-gXQ"/>
                 </constraints>
             </view>
             <connections>

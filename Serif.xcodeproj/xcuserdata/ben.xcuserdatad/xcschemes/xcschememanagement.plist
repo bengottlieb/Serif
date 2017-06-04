@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>SerifTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>TestHost.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>B51FC86D1EE4AF71004B68E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B5701E4F1EE4B3F10081E7D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

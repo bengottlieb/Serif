@@ -65,18 +65,6 @@ extension TrueTypeFont {
 			self.glyfTable = glyfTable
 			self.glyphs = [Glyph?](repeating: nil, count: locations.glyphCount)
 			self.locations = locations
-//			
-//			var bytes = glyfTable.indexed
-//			var glyphs: [Glyph] = []
-//
-//			for i in 0..<locations.glyphCount {
-//				bytes.jump(to: locations.offsets[i])
-//				let glyph = try Glyph(bytes)
-//				glyphs.append(glyph)
-//			}
-//			
-//			self.glyphs = glyphs
-//			print("Extracted \(glyphs.count) glyphs")
 		}
 		
 		func validate() {

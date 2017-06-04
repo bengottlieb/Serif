@@ -35,7 +35,19 @@
 		B51FC8A91EE4B046004B68E2 /* Serif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC85F1EE4AECF004B68E2 /* Serif.framework */; };
 		B51FC8AB1EE4B05D004B68E2 /* CrossPlatformKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC8A61EE4B02D004B68E2 /* CrossPlatformKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B51FC8AC1EE4B05F004B68E2 /* Serif.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC85F1EE4AECF004B68E2 /* Serif.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5701E531EE4B3F10081E7D0 /* SerifTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E521EE4B3F10081E7D0 /* SerifTests.swift */; };
+		B5701E551EE4B3F10081E7D0 /* Serif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC85F1EE4AECF004B68E2 /* Serif.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B5701E561EE4B3F10081E7D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B51FC8561EE4AECF004B68E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B51FC85E1EE4AECF004B68E2;
+			remoteInfo = Serif;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		B51FC8AA1EE4B04A004B68E2 /* Copy Frameworks */ = {
@@ -81,6 +93,9 @@
 		B51FC89A1EE4AFCF004B68E2 /* TrueTypeFont+Names.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TrueTypeFont+Names.swift"; sourceTree = "<group>"; };
 		B51FC89B1EE4AFCF004B68E2 /* TrueTypeFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrueTypeFont.swift; sourceTree = "<group>"; };
 		B51FC8A61EE4B02D004B68E2 /* CrossPlatformKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrossPlatformKit.framework; path = Infrastructure_Mac/Frameworks/Mac/CrossPlatformKit.framework; sourceTree = "<group>"; };
+		B5701E501EE4B3F10081E7D0 /* SerifTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SerifTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5701E521EE4B3F10081E7D0 /* SerifTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerifTests.swift; sourceTree = "<group>"; };
+		B5701E541EE4B3F10081E7D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +116,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B5701E4D1EE4B3F10081E7D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5701E551EE4B3F10081E7D0 /* Serif.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -110,6 +133,7 @@
 				B51FC8911EE4AFCF004B68E2 /* TrueTypeFont */,
 				B51FC8611EE4AECF004B68E2 /* Infrastructure */,
 				B51FC86F1EE4AF71004B68E2 /* TestHost */,
+				B5701E511EE4B3F10081E7D0 /* SerifTests */,
 				B51FC8601EE4AECF004B68E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,6 +143,7 @@
 			children = (
 				B51FC85F1EE4AECF004B68E2 /* Serif.framework */,
 				B51FC86E1EE4AF71004B68E2 /* TestHost.app */,
+				B5701E501EE4B3F10081E7D0 /* SerifTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -204,6 +229,15 @@
 			path = "Serif/Framework Code/TrueTypeFont";
 			sourceTree = "<group>";
 		};
+		B5701E511EE4B3F10081E7D0 /* SerifTests */ = {
+			isa = PBXGroup;
+			children = (
+				B5701E521EE4B3F10081E7D0 /* SerifTests.swift */,
+				B5701E541EE4B3F10081E7D0 /* Info.plist */,
+			);
+			path = SerifTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -254,6 +288,24 @@
 			productReference = B51FC86E1EE4AF71004B68E2 /* TestHost.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B5701E4F1EE4B3F10081E7D0 /* SerifTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5701E5A1EE4B3F10081E7D0 /* Build configuration list for PBXNativeTarget "SerifTests" */;
+			buildPhases = (
+				B5701E4C1EE4B3F10081E7D0 /* Sources */,
+				B5701E4D1EE4B3F10081E7D0 /* Frameworks */,
+				B5701E4E1EE4B3F10081E7D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B5701E571EE4B3F10081E7D0 /* PBXTargetDependency */,
+			);
+			name = SerifTests;
+			productName = SerifTests;
+			productReference = B5701E501EE4B3F10081E7D0 /* SerifTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -270,6 +322,11 @@
 						ProvisioningStyle = Automatic;
 					};
 					B51FC86D1EE4AF71004B68E2 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = YY6CWUX533;
+						ProvisioningStyle = Automatic;
+					};
+					B5701E4F1EE4B3F10081E7D0 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = YY6CWUX533;
 						ProvisioningStyle = Automatic;
@@ -291,6 +348,7 @@
 			targets = (
 				B51FC85E1EE4AECF004B68E2 /* Serif */,
 				B51FC86D1EE4AF71004B68E2 /* TestHost */,
+				B5701E4F1EE4B3F10081E7D0 /* SerifTests */,
 			);
 		};
 /* End PBXProject section */
@@ -312,6 +370,13 @@
 				B51FC88F1EE4AFC2004B68E2 /* GlyphWindowController.xib in Resources */,
 				B51FC88D1EE4AFC2004B68E2 /* GlyphCollectionViewItem.xib in Resources */,
 				B51FC88B1EE4AFC2004B68E2 /* FontWindowController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5701E4E1EE4B3F10081E7D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +414,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B5701E4C1EE4B3F10081E7D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5701E531EE4B3F10081E7D0 /* SerifTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B5701E571EE4B3F10081E7D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B51FC85E1EE4AECF004B68E2 /* Serif */;
+			targetProxy = B5701E561EE4B3F10081E7D0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B51FC8761EE4AF71004B68E2 /* Main.storyboard */ = {
@@ -547,6 +628,32 @@
 			};
 			name = Release;
 		};
+		B5701E581EE4B3F10081E7D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YY6CWUX533;
+				INFOPLIST_FILE = SerifTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.standalone.SerifTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B5701E591EE4B3F10081E7D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YY6CWUX533;
+				INFOPLIST_FILE = SerifTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.standalone.SerifTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -566,12 +673,22 @@
 				B51FC8691EE4AECF004B68E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B51FC87A1EE4AF71004B68E2 /* Build configuration list for PBXNativeTarget "TestHost" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B51FC87B1EE4AF71004B68E2 /* Debug */,
 				B51FC87C1EE4AF71004B68E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B5701E5A1EE4B3F10081E7D0 /* Build configuration list for PBXNativeTarget "SerifTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5701E581EE4B3F10081E7D0 /* Debug */,
+				B5701E591EE4B3F10081E7D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

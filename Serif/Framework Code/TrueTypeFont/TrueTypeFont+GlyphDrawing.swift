@@ -10,10 +10,12 @@ import Foundation
 import CrossPlatformKit
 
 extension TrueTypeFont.Glyph {
-	public func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor? = nil, includingPoints: Bool = false) {
-		let fontWidth = self.font.size.width - self.font.origin.x
-		let fontHeight = self.font.size.height - self.font.origin.y
-		let scale = min(bounds.width / fontWidth, bounds.height / fontHeight)
+	public func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
+		let frame = includingPoints ? bounds.insetBy(dx: 20, dy: 20) : bounds
+		let bbox = scaleToFont ? self.font.bbox : self.bbox
+		let fontWidth = bbox.width - bbox.origin.x
+		let fontHeight = bbox.height - bbox.origin.y
+		let scale = min(frame.width / fontWidth, frame.height / fontHeight)
 		
 		ctx.saveGState()
 		if let color = color { ctx.setFillColor(color.cgColor) }
@@ -21,7 +23,7 @@ extension TrueTypeFont.Glyph {
 		if let components = self.components {
 			for component in components {
 				ctx.saveGState()
-				var transform = CGAffineTransform(translationX: -self.font.origin.x + component.ctm.tx, y: -self.font.origin.y + component.ctm.ty)
+				var transform = CGAffineTransform(translationX: -bbox.origin.x + component.ctm.tx + frame.origin.x, y: -bbox.origin.y + component.ctm.ty + frame.origin.y)
 				transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 				ctx.concatenate(transform)
 				
@@ -31,7 +33,7 @@ extension TrueTypeFont.Glyph {
 				ctx.restoreGState()
 			}
 		} else {
-			var transform = CGAffineTransform(translationX: -self.font.origin.x, y: -self.font.origin.y)
+			var transform = CGAffineTransform(translationX: -bbox.origin.x + frame.origin.x, y: -bbox.origin.y + frame.origin.y)
 			transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 			ctx.concatenate(transform)
 			self.draw(in: ctx, includingPoints: includingPoints)
@@ -48,12 +50,17 @@ extension TrueTypeFont.Glyph {
 		ctx.fillPath(using: .winding)
 		
 		if includingPoints, let points = self.points {
-			let ptSize: CGFloat = 40
+			let ptSize: CGFloat = 30
 			for pt in points {
 				let rect = CGRect(x: CGFloat(pt.x) - ptSize / 2, y: CGFloat(pt.y) - ptSize / 2, width: ptSize, height: ptSize)
 				
+				UXColor.white.set()
+				ctx.setLineWidth(10)
+				ctx.strokeEllipse(in: rect)
+				
+				ctx.setLineWidth(5)
 				if pt.isOnCurve {
-					UXColor.green.set()
+					UXColor.blue.set()
 				} else {
 					UXColor.red.set()
 				}
