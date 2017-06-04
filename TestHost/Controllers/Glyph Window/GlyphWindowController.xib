@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GlyphWindowController" customModule="FontExplorer" customModuleProvider="target">
+            <connections>
+                <outlet property="glyphView" destination="yBo-G3-pI1" id="8UN-Su-4dc"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Glyph Details" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" frameAutosaveName="glyph" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="232" y="965" width="482" height="453"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
+            <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="482" height="453"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="yBo-G3-pI1" customClass="GlyphView" customModule="FontExplorer" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="482" height="453"/>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yBo-G3-pI1" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="7OZ-sm-4UI"/>
+                    <constraint firstAttribute="trailing" secondItem="yBo-G3-pI1" secondAttribute="trailing" id="8hH-dy-PWJ"/>
+                    <constraint firstAttribute="bottom" secondItem="yBo-G3-pI1" secondAttribute="bottom" id="bVF-ga-23q"/>
+                    <constraint firstItem="yBo-G3-pI1" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="cve-c3-GZI"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="252.5"/>
+        </window>
+    </objects>
+</document>
