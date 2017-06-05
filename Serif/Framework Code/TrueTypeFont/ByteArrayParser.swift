@@ -21,6 +21,14 @@ struct ByteArrayParser {
 		self.count = length ?? (bytes.count - index)
 	}
 	
+	subscript(_ range: Range<Int>) -> ByteArrayParser {
+		return ByteArrayParser(bytes: self.bytes, index: self.start + range.lowerBound, length: range.upperBound - range.lowerBound)
+	}
+	
+	subscript(unshifted range: Range<Int>) -> ByteArrayParser {
+		return ByteArrayParser(bytes: self.bytes, index: range.lowerBound, length: range.upperBound - range.lowerBound)
+	}
+	
 	mutating func skip(_ count: Int) { self.index += count }
 	
 	mutating func jump(to: Int) { self.index = to }

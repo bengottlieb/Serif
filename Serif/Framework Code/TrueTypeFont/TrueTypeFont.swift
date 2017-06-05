@@ -82,7 +82,12 @@ public class TrueTypeFont: Font {
 		self.rangeShift = try bytes.nextUInt16()
 		
 		for _ in 0..<self.tableCount {
-			let info = try Table(tag: try bytes.nextUInt32(), checksum: try bytes.nextUInt32(), offset: Int(try bytes.nextUInt32()), length: Int(try bytes.nextUInt32()), bytes: bytes.bytes)
+			let tag = try bytes.nextUInt32()
+			let checksum = try bytes.nextUInt32()
+			let offset = Int(try bytes.nextUInt32())
+			let length = Int(try bytes.nextUInt32())
+			
+			let info = Table(tag: tag, checksum: checksum, parser: bytes[unshifted: offset..<(offset + length)])
 			
 			self.tables.append(info)
 		}
@@ -100,6 +105,9 @@ public class TrueTypeFont: Font {
 		if let glyf = self.table(tag: .glyphs), let locations = self.locations  { self.glyphs = try Glyphs(in: self, glyfTable: glyf, locations: locations) }
 	}
 	
+	var sortedTables: [Table] {
+		return self.tables.sorted { $0.parser.start < $1.parser.start }
+	}
 	
 // MARK: Tables
 	struct Table: CustomStringConvertible, CustomDebugStringConvertible {
@@ -110,22 +118,22 @@ public class TrueTypeFont: Font {
 		var parser: ByteArrayParser
 		
 		var description: String {
-			return "\(self.tag): \(self.parser.count) b"
+			return "\(self.tag): [\(self.parser.start) -> \(self.parser.start + self.parser.count)]; \(self.parser.count) b"
 		}
 		var debugDescription: String { return self.description }
 		
-		init(platformID: UInt16, platformSpecificID: UInt16, offset: Int, length: Int, bytes: [UInt8]) {
+		init(platformID: UInt16, platformSpecificID: UInt16, parser: ByteArrayParser) {
 			self.tag = "\(platformID),\(platformSpecificID)"
 			self.checksum = 0
-			self.parser = ByteArrayParser(bytes: Array(bytes[Int(offset)..<Int(offset + length)]), index: 0, length: length)
+			self.parser = parser// ByteArrayParser(bytes: Array(bytes[Int(offset)..<Int(offset + length)]), index: 0, length: length)
 		}
 		
-		init(tag: UInt32, checksum: UInt32, offset: Int, length: Int, bytes: [UInt8]) throws {
-			if Int(offset + length) > bytes.count { throw Error.tableHeaderOutOfBounds }
+		init(tag: UInt32, checksum: UInt32, parser: ByteArrayParser) {
+		//	if Int(offset + length) > bytes.count { throw Error.tableHeaderOutOfBounds }
 			
 			self.tag = tag.string
 			self.checksum = checksum
-			self.parser = ByteArrayParser(bytes: Array(bytes[Int(offset)..<Int(offset + length)]), index: 0, length: length)
+			self.parser = parser// ByteArrayParser(bytes: Array(bytes[Int(offset)..<Int(offset + length)]), index: 0, length: length)
 		}
 	}
 }
