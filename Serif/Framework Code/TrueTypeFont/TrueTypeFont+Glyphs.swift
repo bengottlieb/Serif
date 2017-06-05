@@ -37,7 +37,7 @@ extension TrueTypeFont {
 		weak var font: TrueTypeFont!
 		
 		public var count: Int { return self.glyphs.count }
-		public subscript(_ index: Int) -> TrueTypeGlyph? {
+		public subscript(_ index: Int) -> Glyph? {
 			if index >= self.glyphs.count { return nil }
 			
 			if let glyph = self.glyphs[index] { return glyph }

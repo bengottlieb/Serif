@@ -31,7 +31,7 @@ extension TrueTypeFont.TrueTypeGlyph {
 				transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 				ctx.concatenate(transform)
 				
-				let glyph = self.font.glyphs[component.index]
+				let glyph = self.font.glyphs[component.index] as? TrueTypeFont.TrueTypeGlyph
 				glyph?.draw(in: ctx, includingPoints: includingPoints)
 				
 				ctx.restoreGState()

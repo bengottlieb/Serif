@@ -11,7 +11,7 @@ import AppKit
 import CrossPlatformKit
 
 extension TrueTypeFont {
-	public struct TrueTypeGlyph: Glyph, CustomStringConvertible {
+	struct TrueTypeGlyph: Glyph, CustomStringConvertible {
 		struct Component {
 			var ctm = CGAffineTransform()
 			var index = 0
@@ -28,7 +28,7 @@ extension TrueTypeFont {
 			var point: CGPoint { return CGPoint(x: Int(self.x), y: Int(self.y)) }
 		}
 		
-		public var description: String {
+		var description: String {
 			var result = "(\(self.xMin), \(self.yMin)) -> (\(self.xMax), \(self.yMax)), \(self.instructions?.count ?? 0) bytes inst.: ["
 			for point in self.points ?? [] {
 				result += "(\(point.x), \(point.y)), "
@@ -37,11 +37,11 @@ extension TrueTypeFont {
 			return result
 		}
 		
-		public let numberOfContours: Int
-		public var size: CGSize { return CGSize(width: CGFloat(self.xMax - self.xMin), height: CGFloat(self.yMax - self.yMin)) }
-		public var origin: CGPoint { return CGPoint(x: CGFloat(self.xMin), y: CGFloat(self.yMin)) }
-		public var bbox: CGRect { return CGRect(origin: self.origin, size: self.size) }
-		public let index: Int
+		let numberOfContours: Int
+		var size: CGSize { return CGSize(width: CGFloat(self.xMax - self.xMin), height: CGFloat(self.yMax - self.yMin)) }
+		var origin: CGPoint { return CGPoint(x: CGFloat(self.xMin), y: CGFloat(self.yMin)) }
+		var bbox: CGRect { return CGRect(origin: self.origin, size: self.size) }
+		let index: Int
 		
 		let xMin: Int16
 		let yMin: Int16
