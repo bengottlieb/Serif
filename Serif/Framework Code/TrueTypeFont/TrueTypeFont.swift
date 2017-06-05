@@ -16,9 +16,7 @@ import Foundation
 
 public class TrueTypeFont: Font {
 	public enum Error: Swift.Error { case noHeader, tableHeaderOutOfBounds, glyphFlagCountMismatch }
-	
-	let data: Data!
-	
+
 	var scalarType: UInt32 = 0
 	var tableCount: UInt16 = 0
 	var searchRange: UInt16 = 0
@@ -39,8 +37,6 @@ public class TrueTypeFont: Font {
 	public var size: CGSize { return self.header.size }
 	public var origin: CGPoint { return self.header.origin }
 	public var bbox: CGRect { return self.header.bbox }
-
-	public init(data: Data!) { self.data = data }
 	
 	public convenience init?(url: URL) {
 		guard let data = try? Data(contentsOf: url) else {
@@ -48,7 +44,7 @@ public class TrueTypeFont: Font {
 			return nil
 		}
 		
-		self.init(data: data)
+		self.init(data: data, url: url)
 		do {
 			try self.data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
 				let array = Array(UnsafeBufferPointer(start: ptr, count: self.data.count))

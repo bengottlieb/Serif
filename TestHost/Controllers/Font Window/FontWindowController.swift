@@ -26,8 +26,8 @@ class FontWindowController: NSWindowController {
 		NotificationCenter.default.addObserver(self, selector: #selector(applicationWillTerminate), name: .NSApplicationWillTerminate, object: nil)
 		
 		fonts.forEach {
-			if let url = URL(string: $0) {
-				self.showFont(at: url)
+			if let url = URL(string: $0), let collection = FontCollection.collection(at: url) {
+				self.show(fontCollection: collection)
 			}
 		}
 	}
@@ -66,7 +66,8 @@ class FontWindowController: NSWindowController {
 		if let window = FontWindowController(font: font) {
 			self.windows.append(window)
 			window.showWindow(nil)
-			
+			window.url = font.url
+
 			self.saveOpenFonts()
 		}
 	}

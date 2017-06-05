@@ -9,6 +9,10 @@
 import Foundation
 import CrossPlatformKit
 
+// more info on drawing glyphs: https://developer.apple.com/fonts/TrueType-Reference-Manual/RM01/Chap1.html#necessary
+// http://chanae.walon.org/pub/ttf/ttf_glyphs.htm
+
+
 extension TrueTypeFont.Glyph {
 	public func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
 		let frame = includingPoints ? bounds.insetBy(dx: 20, dy: 20) : bounds

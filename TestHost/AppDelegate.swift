@@ -33,7 +33,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			print("Attempting to open: \(filename)")
 
 			let url = URL(fileURLWithPath: filename)
-			FontWindowController.showFont(at: url)
+			if let collection = FontCollection.collection(at: url) {
+				FontWindowController.show(fontCollection: collection)
+			}
 		}
 	}
 }

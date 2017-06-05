@@ -10,9 +10,6 @@ import Foundation
 import AppKit
 import CrossPlatformKit
 
-// more info on drawing glyphs: https://developer.apple.com/fonts/TrueType-Reference-Manual/RM01/Chap1.html#necessary
-// http://chanae.walon.org/pub/ttf/ttf_glyphs.htm
-
 extension TrueTypeFont {
 	public struct Glyph: CustomStringConvertible {
 		struct Component {

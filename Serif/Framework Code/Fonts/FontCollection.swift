@@ -15,7 +15,22 @@ public class FontCollection {
 	public var url: URL!
 	public var fonts: [Font] = []
 
+	public static func collection(at url: URL) -> FontCollection? {
+		if url.pathExtension == "ttc" { return FontCollection(url: url) }
+		
+		if let font = Font.font(at: url) {
+			return FontCollection(fonts: [font], at: url)
+		}
+		return nil
+	}
+	
 	public init(data: Data!) { self.data = data }
+	
+	init(fonts: [Font], at url: URL) {
+		self.data = nil
+		self.url = url
+		self.fonts = fonts
+	}
 	
 	public convenience init?(url: URL) {
 		guard let data = try? Data(contentsOf: url) else {
