@@ -39,6 +39,7 @@
 		B5701E551EE4B3F10081E7D0 /* Serif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC85F1EE4AECF004B68E2 /* Serif.framework */; };
 		B5701E631EE4EF220081E7D0 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E611EE4EF220081E7D0 /* Font.swift */; };
 		B5701E641EE4EF220081E7D0 /* FontCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E621EE4EF220081E7D0 /* FontCollection.swift */; };
+		B5FB42D41EE5839C00397E4B /* Glyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FB42D31EE5839C00397E4B /* Glyph.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		B5701E541EE4B3F10081E7D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5701E611EE4EF220081E7D0 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B5701E621EE4EF220081E7D0 /* FontCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontCollection.swift; sourceTree = "<group>"; };
+		B5FB42D31EE5839C00397E4B /* Glyph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Glyph.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +136,7 @@
 		B51FC8551EE4AECF004B68E2 = {
 			isa = PBXGroup;
 			children = (
-				B51FC8921EE4AFCF004B68E2 /* ByteArrayParser.swift */,
+				B5FB42D21EE5836000397E4B /* Utils */,
 				B5701E601EE4EF220081E7D0 /* Fonts */,
 				B51FC8911EE4AFCF004B68E2 /* TrueTypeFont */,
 				B51FC8611EE4AECF004B68E2 /* Infrastructure */,
@@ -248,9 +250,18 @@
 			children = (
 				B5701E611EE4EF220081E7D0 /* Font.swift */,
 				B5701E621EE4EF220081E7D0 /* FontCollection.swift */,
+				B5FB42D31EE5839C00397E4B /* Glyph.swift */,
 			);
 			name = Fonts;
 			path = "Serif/Framework Code/Fonts";
+			sourceTree = "<group>";
+		};
+		B5FB42D21EE5836000397E4B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B51FC8921EE4AFCF004B68E2 /* ByteArrayParser.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,6 +419,7 @@
 				B51FC89D1EE4AFCF004B68E2 /* TrueTypeFont+CharacterMap.swift in Sources */,
 				B51FC8A11EE4AFCF004B68E2 /* TrueTypeFont+Header.swift in Sources */,
 				B51FC89E1EE4AFCF004B68E2 /* TrueTypeFont+Glyph.swift in Sources */,
+				B5FB42D41EE5839C00397E4B /* Glyph.swift in Sources */,
 				B5701E641EE4EF220081E7D0 /* FontCollection.swift in Sources */,
 				B51FC8A51EE4AFCF004B68E2 /* TrueTypeFont.swift in Sources */,
 				B51FC8A01EE4AFCF004B68E2 /* TrueTypeFont+Glyphs.swift in Sources */,

@@ -13,7 +13,7 @@ import CrossPlatformKit
 // http://chanae.walon.org/pub/ttf/ttf_glyphs.htm
 
 
-extension TrueTypeFont.Glyph {
+extension TrueTypeFont.TrueTypeGlyph {
 	public func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
 		let frame = includingPoints ? bounds.insetBy(dx: 20, dy: 20) : bounds
 		let bbox = scaleToFont ? self.font.bbox : self.bbox

@@ -11,7 +11,7 @@ import AppKit
 import CrossPlatformKit
 
 extension TrueTypeFont {
-	public struct Glyph: CustomStringConvertible {
+	public struct TrueTypeGlyph: Glyph, CustomStringConvertible {
 		struct Component {
 			var ctm = CGAffineTransform()
 			var index = 0

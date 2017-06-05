@@ -11,9 +11,9 @@ import Serif
 
 class GlyphWindowController: NSWindowController {
 	@IBOutlet var glyphView: GlyphView!
-	var glyph: TrueTypeFont.Glyph?
+	var glyph: Glyph?
 	
-	static func show(glyph: TrueTypeFont.Glyph) -> GlyphWindowController {
+	static func show(glyph: Glyph) -> GlyphWindowController {
 		let controller = GlyphWindowController(windowNibName: "GlyphWindowController")
 		controller.glyph = glyph
 		

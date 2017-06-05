@@ -37,7 +37,7 @@ extension TrueTypeFont {
 		weak var font: TrueTypeFont!
 		
 		public var count: Int { return self.glyphs.count }
-		public subscript(_ index: Int) -> Glyph? {
+		public subscript(_ index: Int) -> TrueTypeGlyph? {
 			if index >= self.glyphs.count { return nil }
 			
 			if let glyph = self.glyphs[index] { return glyph }
@@ -45,7 +45,7 @@ extension TrueTypeFont {
 			var bytes = glyfTable.parser
 			bytes.jump(to: locations.offsets[index])
 			do {
-				var glyph = try Glyph(bytes, index: index)
+				var glyph = try TrueTypeGlyph(bytes, index: index)
 				glyph.font = self.font
 				self.glyphs[index] = glyph
 				return glyph
@@ -54,14 +54,14 @@ extension TrueTypeFont {
 			}
 		}
 		
-		var glyphs: [Glyph?]
+		var glyphs: [TrueTypeGlyph?]
 		
 		let locations: Locations
 		let glyfTable: Table
 		init(in font: TrueTypeFont, glyfTable: Table, locations: Locations) throws {
 			self.font = font
 			self.glyfTable = glyfTable
-			self.glyphs = [Glyph?](repeating: nil, count: locations.glyphCount)
+			self.glyphs = [TrueTypeGlyph?](repeating: nil, count: locations.glyphCount)
 			self.locations = locations
 		}
 		
