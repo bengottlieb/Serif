@@ -10,7 +10,7 @@ import Foundation
 
 // Format docs: https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6glyf.html
 
-extension TrueTypeFont.IndexedByteArray {
+extension IndexedByteArray {
 	mutating func nextCoordinate(with flag: UInt8, previous: Int16, isShortMask: UInt8, isSameMask: UInt8) throws -> Int16 {
 		var value: Int16
 		let isShortValue = (flag & isShortMask) > 0
@@ -32,9 +32,7 @@ extension TrueTypeFont.IndexedByteArray {
 	}
 }
 
-extension TrueTypeFont {
-	public enum GlyphError: Error { case flagCountMismatch }
-	
+extension TrueTypeFont {	
 	public class Glyphs {
 		weak var font: TrueTypeFont!
 		

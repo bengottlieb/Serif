@@ -90,7 +90,7 @@ extension TrueTypeFont {
 						}
 					}
 					
-					if flags.count != coordinateCount { throw GlyphError.flagCountMismatch }
+					if flags.count != coordinateCount { throw Error.glyphFlagCountMismatch }
 					
 					var points: [Point] = []
 					var prevX: Int16 = 0, prevY: Int16 = 0

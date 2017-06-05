@@ -40,7 +40,13 @@ class FontWindowController: NSWindowController {
 	
 	static var windows: [FontWindowController] = []
 	static func showFont(at url: URL) {
-		if let window = FontWindowController(url: url) {
+		if let font = TrueTypeFont(url: url) {
+			self.show(font: font)
+		}
+	}
+	
+	static func show(font: Font) {
+		if let window = FontWindowController(font: font) {
 			self.windows.append(window)
 			window.showWindow(nil)
 			
@@ -64,17 +70,29 @@ class FontWindowController: NSWindowController {
 		if !self.loadFont(at: url) { return nil }
 	}
 	
+	convenience init?(font: Font) {
+		self.init(windowNibName: "FontWindowController")
+		if !self.load(font: font) { return nil }
+	}
+	
 	override func loadWindow() {
 		super.loadWindow()
 		self.window?.title = self.windowTitle
 	}
 	
+	func load(font: Font) -> Bool {
+		guard let fnt = font as? TrueTypeFont else { return false }
+		self.font = fnt
+		return self.font != nil
+	}
+	
 	func loadFont(at url: URL?) -> Bool {
 		guard let url = url else { return false }
 		self.url = url
-		self.font = TrueTypeFont(url: url)
-		guard self.font != nil else { return false }
-		return true
+		if let font = TrueTypeFont(url: url) {
+			return self.load(font: font)
+		}
+		return false
 	}
 	
 	var windowTitle: String {

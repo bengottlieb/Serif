@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Serif
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -29,9 +30,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func application(_ sender: NSApplication, openFiles filenames: [String]) {
 		for filename in filenames {
+			print("Attempting to open: \(filename)")
+
 			let url = URL(fileURLWithPath: filename)
-			print("Opening: \(filename)")
-			FontWindowController.showFont(at: url)
+			if url.pathExtension == "ttf" {
+				FontWindowController.showFont(at: url)
+			} else if url.pathExtension == "ttc", let collection = TrueTypeCollection(url: url) {
+				FontWindowController.show(font: collection.fonts.first!)
+			}
 		}
 	}
 }

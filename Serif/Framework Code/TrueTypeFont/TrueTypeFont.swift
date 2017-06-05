@@ -14,10 +14,10 @@ import Foundation
 
 // Code: http://stevehanov.ca/blog/index.php?id=143
 
-public class TrueTypeFont {
-	public enum FontError: Error { case noHeader, tableHeaderOutOfBounds }
+public class TrueTypeFont: Font {
+	public enum Error: Swift.Error { case noHeader, tableHeaderOutOfBounds, glyphFlagCountMismatch }
 	
-	let data: Data
+	let data: Data!
 	
 	var scalarType: UInt32 = 0
 	var tableCount: UInt16 = 0
@@ -40,17 +40,32 @@ public class TrueTypeFont {
 	public var origin: CGPoint { return self.header.origin }
 	public var bbox: CGRect { return self.header.bbox }
 
-	public init(data: Data) { self.data = data }
+	public init(data: Data!) { self.data = data }
 	
 	public convenience init?(url: URL) {
 		guard let data = try? Data(contentsOf: url) else {
-			self.init(data: Data())
+			self.init(data: nil)
 			return nil
 		}
 		
 		self.init(data: data)
 		do {
-			try self.parse()
+			try self.data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
+				let array = Array(UnsafeBufferPointer(start: ptr, count: self.data.count))
+				var bytes = IndexedByteArray(bytes: array, index: 0)
+				try self.parse(bytes: &bytes)
+			}
+		} catch {
+			return nil
+		}
+	}
+	
+	convenience init?(bytes: IndexedByteArray) {
+		self.init(data: nil)
+		
+		do {
+			var parser = bytes
+			try self.parse(bytes: &parser)
 		} catch {
 			return nil
 		}
@@ -63,35 +78,30 @@ public class TrueTypeFont {
 		return nil
 	}
 	
-	func parse() throws {
-		try self.data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
-			let array = Array(UnsafeBufferPointer(start: ptr, count: self.data.count))
-			var bytes = IndexedByteArray(bytes: array, index: 0)
-			self.scalarType = try bytes.nextUInt32()
-			self.tableCount = try bytes.nextUInt16()
-			self.searchRange = try bytes.nextUInt16()
-			self.entrySelector = try bytes.nextUInt16()
-			self.rangeShift = try bytes.nextUInt16()
+	func parse(bytes: inout IndexedByteArray) throws {
+		self.scalarType = try bytes.nextUInt32()
+		self.tableCount = try bytes.nextUInt16()
+		self.searchRange = try bytes.nextUInt16()
+		self.entrySelector = try bytes.nextUInt16()
+		self.rangeShift = try bytes.nextUInt16()
+		
+		for _ in 0..<self.tableCount {
+			let info = try Table(tag: try bytes.nextUInt32(), checksum: try bytes.nextUInt32(), offset: try bytes.nextUInt32(), length: try bytes.nextUInt32(), bytes: bytes.bytes)
 			
-			for _ in 0..<self.tableCount {
-				let info = try Table(tag: try bytes.nextUInt32(), checksum: try bytes.nextUInt32(), offset: try bytes.nextUInt32(), length: try bytes.nextUInt32(), bytes: array)
-				
-				self.tables.append(info)
-			}
-			
-			if let header = self.table(tag: .header), let maxP = self.table(tag: .maximumProfile) {
-				self.header = try Header(header: header, maxProfile: maxP)
-			} else {
-				throw FontError.noHeader
-			}
-			
-			if let names = self.table(tag: .names) { self.names = try Names(namesTable: names) }
-			if let horiz = self.table(tag: .horizontalHeader)  { self.metrics = try Metrics(headerTable: horiz, metricsTable: self.table(tag: .horizontalMetrics)) }
-			if let cmap = self.table(tag: .characterMap)  { self.characterMap = try CharacterMap(cmapTable: cmap) }
-			if let loca = self.table(tag: .locations), let header = self.header { self.locations = try Locations(locaTable: loca, header: header) }
-			if let glyf = self.table(tag: .glyphs), let locations = self.locations  { self.glyphs = try Glyphs(in: self, glyfTable: glyf, locations: locations) }
-			
+			self.tables.append(info)
 		}
+		
+		if let header = self.table(tag: .header), let maxP = self.table(tag: .maximumProfile) {
+			self.header = try Header(header: header, maxProfile: maxP)
+		} else {
+			throw Error.noHeader
+		}
+		
+		if let names = self.table(tag: .names) { self.names = try Names(namesTable: names) }
+		if let horiz = self.table(tag: .horizontalHeader)  { self.metrics = try Metrics(headerTable: horiz, metricsTable: self.table(tag: .horizontalMetrics)) }
+		if let cmap = self.table(tag: .characterMap)  { self.characterMap = try CharacterMap(cmapTable: cmap) }
+		if let loca = self.table(tag: .locations), let header = self.header { self.locations = try Locations(locaTable: loca, header: header) }
+		if let glyf = self.table(tag: .glyphs), let locations = self.locations  { self.glyphs = try Glyphs(in: self, glyfTable: glyf, locations: locations) }
 	}
 	
 	
@@ -119,7 +129,7 @@ public class TrueTypeFont {
 		}
 		
 		init(tag: UInt32, checksum: UInt32, offset: UInt32, length: UInt32, bytes: [UInt8]) throws {
-			if Int(offset + length) > bytes.count { throw FontError.tableHeaderOutOfBounds }
+			if Int(offset + length) > bytes.count { throw Error.tableHeaderOutOfBounds }
 			
 			self.tag = tag.string
 			self.checksum = checksum
