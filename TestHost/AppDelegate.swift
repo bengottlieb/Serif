@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 			let url = URL(fileURLWithPath: filename)
 			if let collection = FontCollection.collection(at: url) {
-				FontWindowController.show(fontCollection: collection)
+				FontWindowController.show(collection: collection)
 			}
 		}
 	}

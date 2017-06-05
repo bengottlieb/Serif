@@ -1,5 +1,5 @@
 //
-//  TrueTypeFont+Glyph.swift
+//  TrueTypeDescriptor+Glyph.swift
 //  FontExplorer
 //
 //  Created by Ben Gottlieb on 5/30/17.
@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 import CrossPlatformKit
 
-extension TrueTypeFont {
+extension TrueTypeDescriptor {
 	struct TrueTypeGlyph: Glyph, CustomStringConvertible {
 		struct Component {
 			var ctm = CGAffineTransform()
@@ -50,7 +50,7 @@ extension TrueTypeFont {
 		let instructions: [UInt8]?
 		let points: [Point]?
 		let components: [Component]?
-		weak var font: TrueTypeFont!
+		weak var font: TrueTypeDescriptor!
 		
 		init(_ incoming: ByteArrayParser, index: Int) throws {
 			self.index = index

@@ -1,5 +1,5 @@
 //
-//  TrueTypeFont.swift
+//  TrueTypeDescriptor.swift
 //  FontExplorer
 //
 //  Created by Ben Gottlieb on 5/23/17.
@@ -14,7 +14,7 @@ import Foundation
 
 // Code: http://stevehanov.ca/blog/index.php?id=143
 
-public class TrueTypeFont: Font {
+public class TrueTypeDescriptor: FontDescriptor {
 	public enum Error: Swift.Error { case noHeader, tableHeaderOutOfBounds, glyphFlagCountMismatch }
 
 	var scalarType: UInt32 = 0
@@ -24,12 +24,13 @@ public class TrueTypeFont: Font {
 	var rangeShift: UInt16 = 0
 	var tables: [Table] = []
 	
+	public override var numberOfGlyphs: Int { return self.glyphs?.count ?? 0 }
+	
 	public var header: Header!
 	public var metrics: Metrics!
 	public var characterMap: CharacterMap!
 	public var names: Names!
 	public var locations: Locations!
-	public var glyphs: Glyphs!
 	
 	public override var title: String? { return self.names?.name(with: .fullName) }
 	public var unitsPerEm: Int { return Int(self.header?.unitsPerEm ?? 1) }

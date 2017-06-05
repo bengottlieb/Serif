@@ -1,5 +1,5 @@
 //
-//  TrueTypeFont+Metrics.swift
+//  TrueTypeDescriptor+Metrics.swift
 //  FontExplorer
 //
 //  Created by Ben Gottlieb on 5/26/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TrueTypeFont {
+extension TrueTypeDescriptor {
 	public struct Metrics {
 		let version: CGFloat
 		let ascent: Int16

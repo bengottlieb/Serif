@@ -1,5 +1,5 @@
 //
-//  TrueTypeFont+Glyphs.swift
+//  TrueTypeDescriptor+Glyphs.swift
 //  FontExplorer
 //
 //  Created by Ben Gottlieb on 5/26/17.
@@ -32,9 +32,9 @@ extension ByteArrayParser {
 	}
 }
 
-extension TrueTypeFont {	
-	public class Glyphs {
-		weak var font: TrueTypeFont!
+extension TrueTypeDescriptor {	
+	public class Glyphs: GlyphCollection {
+		weak var font: TrueTypeDescriptor!
 		
 		public var count: Int { return self.glyphs.count }
 		public subscript(_ index: Int) -> Glyph? {
@@ -58,7 +58,7 @@ extension TrueTypeFont {
 		
 		let locations: Locations
 		let glyfTable: Table
-		init(in font: TrueTypeFont, glyfTable: Table, locations: Locations) throws {
+		init(in font: TrueTypeDescriptor, glyfTable: Table, locations: Locations) throws {
 			self.font = font
 			self.glyfTable = glyfTable
 			self.glyphs = [TrueTypeGlyph?](repeating: nil, count: locations.glyphCount)

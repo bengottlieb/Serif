@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TrueTypeFont {
+extension TrueTypeDescriptor {
 	public struct CharacterMap {
 		let tables: [Table]
 		

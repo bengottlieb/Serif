@@ -1,5 +1,5 @@
 //
-//  TrueTypeFont+Names.swift
+//  TrueTypeDescriptor+Names.swift
 //  FontExplorer
 //
 //  Created by Ben Gottlieb on 5/26/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TrueTypeFont {
+extension TrueTypeDescriptor {
 	public struct Names {
 		public enum Identifier: Int { case copyright, family, subfamily, subfamilyID, fullName, nameTableVersion, postscriptName, trademarkNotice, manufacturer, designer, description, vendorURLL, designerURL, license, unused_1, preferredFamily, preferredSubfamily, compatible, sampleText }
 		

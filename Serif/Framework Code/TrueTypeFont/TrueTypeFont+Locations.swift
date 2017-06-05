@@ -1,5 +1,5 @@
 //
-//  TrueTypeFont+Locations.swift
+//  TrueTypeDescriptor+Locations.swift
 //  FontExplorer
 //
 //  Created by Ben Gottlieb on 5/29/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TrueTypeFont {
+extension TrueTypeDescriptor {
 	public struct Locations {
 		let offsets: [Int]
 		let glyphCount: Int

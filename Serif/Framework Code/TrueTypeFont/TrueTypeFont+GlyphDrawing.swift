@@ -1,5 +1,5 @@
 //
-//  TrueTypeFont+GlyphDrawing.swift
+//  TrueTypeDescriptor+GlyphDrawing.swift
 //  FontExplorer
 //
 //  Created by Ben Gottlieb on 6/4/17.
@@ -13,7 +13,7 @@ import CrossPlatformKit
 // http://chanae.walon.org/pub/ttf/ttf_glyphs.htm
 
 
-extension TrueTypeFont.TrueTypeGlyph {
+extension TrueTypeDescriptor.TrueTypeGlyph {
 	public func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
 		let frame = includingPoints ? bounds.insetBy(dx: 20, dy: 20) : bounds
 		let bbox = scaleToFont ? self.font.bbox : self.bbox
@@ -31,7 +31,7 @@ extension TrueTypeFont.TrueTypeGlyph {
 				transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 				ctx.concatenate(transform)
 				
-				let glyph = self.font.glyphs[component.index] as? TrueTypeFont.TrueTypeGlyph
+				let glyph = self.font.glyphs[component.index] as? TrueTypeDescriptor.TrueTypeGlyph
 				glyph?.draw(in: ctx, includingPoints: includingPoints)
 				
 				ctx.restoreGState()

@@ -25,7 +25,7 @@ extension FontWindowController: NSCollectionViewDataSource {
 	}
 	
 	func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-		return self.font?.glyphs?.count ?? 0
+		return self.font?.descriptor.numberOfGlyphs ?? 0
 	}
 	
 	public func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
@@ -33,7 +33,7 @@ extension FontWindowController: NSCollectionViewDataSource {
 		let item = collectionView.makeItem(withIdentifier: GlyphCollectionViewItem.identifier, for: indexPath)
 		
 		if let glyphItem = item as? GlyphCollectionViewItem {
-			glyphItem.glyph = self.font?.glyphs[indexPath.item]
+			glyphItem.glyph = self.font?.descriptor.glyphs[indexPath.item]
 		}
 		return item
 	}

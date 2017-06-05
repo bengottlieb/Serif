@@ -13,23 +13,23 @@ public class FontCollection {
 
 	let data: Data!
 	public var url: URL!
-	public var fonts: [Font] = []
+	public var descriptors: [FontDescriptor] = []
 
 	public static func collection(at url: URL) -> FontCollection? {
 		if url.pathExtension == "ttc" { return FontCollection(url: url) }
 		
-		if let font = Font.font(at: url) {
-			return FontCollection(fonts: [font], at: url)
+		if let descriptor = FontDescriptor.descriptor(at: url) {
+			return FontCollection(descriptors: [descriptor], at: url)
 		}
 		return nil
 	}
 	
 	public init(data: Data!) { self.data = data }
 	
-	init(fonts: [Font], at url: URL) {
+	init(descriptors: [FontDescriptor], at url: URL) {
 		self.data = nil
 		self.url = url
-		self.fonts = fonts
+		self.descriptors = descriptors
 	}
 	
 	public convenience init?(url: URL) {
@@ -62,8 +62,8 @@ public class FontCollection {
 		for _ in 0..<fontCount {
 			let offset = Int(try bytes.nextUInt32())
 			let parser = ByteArrayParser(bytes: bytes.bytes, index: offset)
-			if let font = TrueTypeFont(bytes: parser) {
-				self.fonts.append(font)
+			if let descriptor = TrueTypeDescriptor(bytes: parser) {
+				self.descriptors.append(descriptor)
 			}
 		}
 		

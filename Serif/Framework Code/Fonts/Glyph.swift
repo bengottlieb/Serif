@@ -14,3 +14,8 @@ public protocol Glyph {
 	
 	var index: Int { get }
 }
+
+public protocol GlyphCollection {
+	var count: Int { get }
+	subscript(_ index: Int) -> Glyph? { get }
+}

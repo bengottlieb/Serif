@@ -15,9 +15,10 @@ class FontWindowController: NSWindowController {
 	@IBOutlet var fontSizeSlider: NSSlider!
 	@IBOutlet var fontSizeLabel: NSTextField!
 	
-	var fonts: [TrueTypeFont] = []
+	var pointSize = 14
+	var descriptors: [FontDescriptor] = []
 	var url: URL?
-	var font: TrueTypeFont? { didSet {
+	var font: Font? { didSet {
 		self.glyphCollectionView?.reloadData()
 	}}
 	var glyphWindows: [GlyphWindowController] = []
@@ -31,7 +32,7 @@ class FontWindowController: NSWindowController {
 			print("Attempting to re-open: \($0)")
 
 			if let url = URL(string: $0), let collection = FontCollection.collection(at: url) {
-				self.show(fontCollection: collection)
+				self.show(collection: collection)
 			}
 		}
 	}
@@ -47,18 +48,19 @@ class FontWindowController: NSWindowController {
 	}
 	
 	static var windows: [FontWindowController] = []
+	
 	static func showFont(at url: URL) {
 		if url.pathExtension == "ttc", let collection = FontCollection(url: url) {
-			self.show(fontCollection: collection)
-		} else if url.pathExtension == "ttf", let font = TrueTypeFont(url: url) {
-			self.show(font: font)
+			self.show(collection: collection)
+		} else if url.pathExtension == "ttf", let descriptor = TrueTypeDescriptor(url: url) {
+			self.show(descriptor: descriptor)
 		}
 	}
 	
-	static func show(fontCollection: FontCollection) {
-		if let font = fontCollection.fonts.first as? TrueTypeFont, let window = FontWindowController(font: font) {
-			window.fonts = fontCollection.fonts as? [TrueTypeFont] ?? []
-			window.url = fontCollection.url
+	static func show(collection: FontCollection) {
+		if let descriptor = collection.descriptors.first as? TrueTypeDescriptor, let window = FontWindowController(descriptor: descriptor) {
+			window.descriptors = collection.descriptors
+			window.url = collection.url
 			self.windows.append(window)
 			window.showWindow(nil)
 			
@@ -66,11 +68,11 @@ class FontWindowController: NSWindowController {
 		}
 	}
 
-	static func show(font: Font) {
-		if let window = FontWindowController(font: font) {
+	static func show(descriptor: FontDescriptor) {
+		if let window = FontWindowController(descriptor: descriptor) {
 			self.windows.append(window)
 			window.showWindow(nil)
-			window.url = font.url
+			window.url = descriptor.url
 
 			self.saveOpenFonts()
 		}
@@ -92,9 +94,9 @@ class FontWindowController: NSWindowController {
 		if !self.loadFont(at: url) { return nil }
 	}
 	
-	convenience init?(font: Font) {
+	convenience init?(descriptor: FontDescriptor) {
 		self.init(windowNibName: "FontWindowController")
-		if !self.load(font: font) { return nil }
+		if !self.load(descriptor: descriptor) { return nil }
 	}
 	
 	override func loadWindow() {
@@ -107,29 +109,28 @@ class FontWindowController: NSWindowController {
 	func reloadFontPicker() {
 		self.fontMenu.removeAllItems()
 		
-		for font in self.fonts {
+		for font in self.descriptors {
 			self.fontMenu.addItem(withTitle: font.title ?? "Untitled Font")
 		}
 	}
 	
-	func load(font: Font) -> Bool {
-		guard let fnt = font as? TrueTypeFont else { return false }
-		self.font = fnt
+	func load(descriptor: FontDescriptor) -> Bool {
+		self.font = Font(descriptor: descriptor, size: 12)
 		return self.font != nil
 	}
 	
 	func loadFont(at url: URL?) -> Bool {
 		guard let url = url else { return false }
 		self.url = url
-		if let font = TrueTypeFont(url: url) {
-			return self.load(font: font)
+		if let desc = TrueTypeDescriptor(url: url) {
+			return self.load(descriptor: desc)
 		}
 		return false
 	}
 	
 	var windowTitle: String {
-		let count = self.font?.glyphs?.count ?? 0
-		return (self.font?.title ?? "Untitled Font") + ", \(count) glyphs"
+		let count = self.font?.descriptor.numberOfGlyphs ?? 0
+		return (self.font?.descriptor.title ?? "Untitled Font") + ", \(count) glyphs"
 	}
 	
     override func windowDidLoad() {
@@ -145,8 +146,8 @@ class FontWindowController: NSWindowController {
 	
 	@IBAction func didSelectFont(_ sender: Any?) {
 		let index = self.fontMenu.indexOfSelectedItem
-		if index < self.fonts.count {
-			self.font = self.fonts[index]
+		if index < self.descriptors.count {
+			self.font = Font(descriptor: self.descriptors[index], size: self.pointSize)
 		}
 	}
 	

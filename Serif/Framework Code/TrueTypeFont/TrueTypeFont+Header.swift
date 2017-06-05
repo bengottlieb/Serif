@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TrueTypeFont {
+extension TrueTypeDescriptor {
 	public struct Header {
 		let version: CGFloat
 		let fontRevision: CGFloat
