@@ -12,6 +12,8 @@ import Serif
 class FontWindowController: NSWindowController {
 	@IBOutlet var glyphCollectionView: NSCollectionView!
 	@IBOutlet var fontMenu: NSPopUpButton!
+	@IBOutlet var fontSizeSlider: NSSlider!
+	@IBOutlet var fontSizeLabel: NSTextField!
 	
 	var fonts: [TrueTypeFont] = []
 	var url: URL?
@@ -146,5 +148,9 @@ class FontWindowController: NSWindowController {
 		if index < self.fonts.count {
 			self.font = self.fonts[index]
 		}
+	}
+	
+	@IBAction func fontSizeChanged(_ sender: Any?) {
+		self.fontSizeLabel.stringValue = "\(Int(self.fontSizeSlider.doubleValue)) pt."
 	}
 }

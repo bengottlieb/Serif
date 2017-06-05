@@ -9,6 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FontWindowController" customModule="TestHost" customModuleProvider="target">
             <connections>
                 <outlet property="fontMenu" destination="jkb-B2-tvc" id="dKd-P3-dk6"/>
+                <outlet property="fontSizeLabel" destination="UZt-jr-cAm" id="id8-ZX-PFD"/>
+                <outlet property="fontSizeSlider" destination="Q5p-hI-U1t" id="jgd-G4-fj9"/>
                 <outlet property="glyphCollectionView" destination="V24-K7-9K9" id="9pH-DT-6NX"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -71,13 +73,35 @@
                             <action selector="didSelectFont:" target="-2" id="Wsy-20-7Gr"/>
                         </connections>
                     </popUpButton>
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q5p-hI-U1t">
+                        <rect key="frame" x="387" y="655" width="158" height="19"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="154" id="B2d-5H-LhK"/>
+                        </constraints>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="5" maxValue="100" doubleValue="14" tickMarkPosition="above" sliderType="linear" id="nKS-zD-ltP"/>
+                        <connections>
+                            <action selector="fontSizeChanged:" target="-2" id="uCN-6O-3GO"/>
+                        </connections>
+                    </slider>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZt-jr-cAm">
+                        <rect key="frame" x="568" y="656" width="39" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="14 pt." id="nhd-YU-3xp">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="XVl-GA-XHq" firstAttribute="top" secondItem="jkb-B2-tvc" secondAttribute="bottom" constant="8" id="1Lx-6A-7zN"/>
+                    <constraint firstItem="Q5p-hI-U1t" firstAttribute="centerY" secondItem="UZt-jr-cAm" secondAttribute="centerY" id="1zk-HX-fzG"/>
                     <constraint firstItem="jkb-B2-tvc" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="9" id="6tl-Q6-7Cn"/>
                     <constraint firstItem="jkb-B2-tvc" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="7iA-x9-Q1h"/>
+                    <constraint firstItem="Q5p-hI-U1t" firstAttribute="centerY" secondItem="jkb-B2-tvc" secondAttribute="centerY" id="BLb-e1-bPE"/>
                     <constraint firstItem="XVl-GA-XHq" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="EwA-id-WdX"/>
                     <constraint firstAttribute="bottom" secondItem="XVl-GA-XHq" secondAttribute="bottom" id="HZ5-vf-9a6"/>
+                    <constraint firstAttribute="trailing" secondItem="UZt-jr-cAm" secondAttribute="trailing" constant="20" id="IgU-Yo-3tE"/>
+                    <constraint firstAttribute="trailing" secondItem="Q5p-hI-U1t" secondAttribute="trailing" constant="82" id="TLV-Pe-h8h"/>
                     <constraint firstAttribute="trailing" secondItem="XVl-GA-XHq" secondAttribute="trailing" id="rk9-kV-Czd"/>
                 </constraints>
             </view>
