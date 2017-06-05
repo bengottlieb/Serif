@@ -42,7 +42,7 @@ struct ByteArrayParser {
 	
 	func getRange(_ range: Range<Int>) throws -> [UInt8] {
 		if range.upperBound > self.count || range.lowerBound > self.count { throw IndexedByteError.outOfBounds }
-		return Array(self.bytes[Int(range.lowerBound)..<Int(range.upperBound)])
+		return Array(self.bytes[Int(range.lowerBound + self.start)..<Int(range.upperBound + self.start)])
 	}
 	
 	mutating func nextInt8() throws -> Int8 {
