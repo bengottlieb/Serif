@@ -11,9 +11,13 @@ import Serif
 
 class FontWindowController: NSWindowController {
 	@IBOutlet var glyphCollectionView: NSCollectionView!
+	@IBOutlet var fontMenu: NSPopUpButton!
 	
+	var fonts: [TrueTypeFont] = []
 	var url: URL?
-	var font: TrueTypeFont?
+	var font: TrueTypeFont? { didSet {
+		self.glyphCollectionView?.reloadData()
+	}}
 	var glyphWindows: [GlyphWindowController] = []
 	
 	static func restoreOpenFonts() {
@@ -40,11 +44,24 @@ class FontWindowController: NSWindowController {
 	
 	static var windows: [FontWindowController] = []
 	static func showFont(at url: URL) {
-		if let font = TrueTypeFont(url: url) {
+		if url.pathExtension == "ttc", let collection = FontCollection(url: url) {
+			self.show(fontCollection: collection)
+		} else if url.pathExtension == "ttf", let font = TrueTypeFont(url: url) {
 			self.show(font: font)
 		}
 	}
 	
+	static func show(fontCollection: FontCollection) {
+		if let font = fontCollection.fonts.first as? TrueTypeFont, let window = FontWindowController(font: font) {
+			window.fonts = fontCollection.fonts as? [TrueTypeFont] ?? []
+			window.url = fontCollection.url
+			self.windows.append(window)
+			window.showWindow(nil)
+			
+			self.saveOpenFonts()
+		}
+	}
+
 	static func show(font: Font) {
 		if let window = FontWindowController(font: font) {
 			self.windows.append(window)
@@ -78,6 +95,16 @@ class FontWindowController: NSWindowController {
 	override func loadWindow() {
 		super.loadWindow()
 		self.window?.title = self.windowTitle
+		
+		self.reloadFontPicker()
+	}
+	
+	func reloadFontPicker() {
+		self.fontMenu.removeAllItems()
+		
+		for font in self.fonts {
+			self.fontMenu.addItem(withTitle: font.title ?? "Untitled Font")
+		}
 	}
 	
 	func load(font: Font) -> Bool {
@@ -109,5 +136,12 @@ class FontWindowController: NSWindowController {
 	
 	func updateGlyphsCollection() {
 		
+	}
+	
+	@IBAction func didSelectFont(_ sender: Any?) {
+		let index = self.fontMenu.indexOfSelectedItem
+		if index < self.fonts.count {
+			self.font = self.fonts[index]
+		}
 	}
 }

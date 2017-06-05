@@ -6,8 +6,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="FontWindowController" customModule="FontExplorer" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="FontWindowController" customModule="TestHost" customModuleProvider="target">
             <connections>
+                <outlet property="fontMenu" destination="jkb-B2-tvc" id="dKd-P3-dk6"/>
                 <outlet property="glyphCollectionView" destination="V24-K7-9K9" id="9pH-DT-6NX"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -18,19 +19,19 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="66" y="723" width="625" height="684"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="625" height="684"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XVl-GA-XHq">
-                        <rect key="frame" x="0.0" y="0.0" width="625" height="684"/>
+                        <rect key="frame" x="0.0" y="0.0" width="625" height="646"/>
                         <clipView key="contentView" drawsBackground="NO" id="tYa-9o-Db8">
-                            <rect key="frame" x="1" y="1" width="623" height="682"/>
+                            <rect key="frame" x="1" y="1" width="623" height="644"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <collectionView selectable="YES" id="V24-K7-9K9">
-                                    <rect key="frame" x="0.0" y="0.0" width="623" height="682"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="623" height="644"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="ETo-Ti-WAm">
                                         <size key="itemSize" width="100" height="100"/>
@@ -49,22 +50,41 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="xZ2-9H-THT">
-                            <rect key="frame" x="234" y="1" width="15" height="143"/>
+                            <rect key="frame" x="608" y="1" width="16" height="635"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jkb-B2-tvc">
+                        <rect key="frame" x="18" y="651" width="76" height="26"/>
+                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="0Ql-8b-xHC" id="PZT-W5-7tY">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="PXG-VM-gmb">
+                                <items>
+                                    <menuItem title="Item 1" state="on" id="0Ql-8b-xHC"/>
+                                    <menuItem title="Item 2" id="Zo1-Da-xxl"/>
+                                    <menuItem title="Item 3" id="pWn-1d-FC6"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <connections>
+                            <action selector="didSelectFont:" target="-2" id="Wsy-20-7Gr"/>
+                        </connections>
+                    </popUpButton>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="XVl-GA-XHq" firstAttribute="top" secondItem="jkb-B2-tvc" secondAttribute="bottom" constant="8" id="1Lx-6A-7zN"/>
+                    <constraint firstItem="jkb-B2-tvc" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="9" id="6tl-Q6-7Cn"/>
+                    <constraint firstItem="jkb-B2-tvc" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="7iA-x9-Q1h"/>
                     <constraint firstItem="XVl-GA-XHq" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="EwA-id-WdX"/>
                     <constraint firstAttribute="bottom" secondItem="XVl-GA-XHq" secondAttribute="bottom" id="HZ5-vf-9a6"/>
-                    <constraint firstItem="XVl-GA-XHq" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="nUm-h3-9Rv"/>
                     <constraint firstAttribute="trailing" secondItem="XVl-GA-XHq" secondAttribute="trailing" id="rk9-kV-Czd"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="8.5" y="90"/>
+            <point key="canvasLocation" x="91.5" y="86"/>
         </window>
     </objects>
 </document>

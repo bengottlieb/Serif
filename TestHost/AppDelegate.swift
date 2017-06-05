@@ -33,11 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			print("Attempting to open: \(filename)")
 
 			let url = URL(fileURLWithPath: filename)
-			if url.pathExtension == "ttf" {
-				FontWindowController.showFont(at: url)
-			} else if url.pathExtension == "ttc", let collection = TrueTypeCollection(url: url) {
-				FontWindowController.show(font: collection.fonts.first!)
-			}
+			FontWindowController.showFont(at: url)
 		}
 	}
 }

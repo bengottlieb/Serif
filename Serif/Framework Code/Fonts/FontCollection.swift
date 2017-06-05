@@ -1,5 +1,5 @@
 //
-//  TrueTypeCollection.swift
+//  FontCollection.swift
 //  Serif
 //
 //  Created by Ben Gottlieb on 6/4/17.
@@ -8,10 +8,11 @@
 
 import Foundation
 
-public class TrueTypeCollection {
+public class FontCollection {
 	public enum Error: Swift.Error { case badHeader, tableHeaderOutOfBounds }
 
 	let data: Data!
+	public var url: URL!
 	public var fonts: [Font] = []
 
 	public init(data: Data!) { self.data = data }
@@ -23,6 +24,7 @@ public class TrueTypeCollection {
 		}
 		
 		self.init(data: data)
+		self.url = url
 		do {
 			try self.data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
 				let array = Array(UnsafeBufferPointer(start: ptr, count: self.data.count))

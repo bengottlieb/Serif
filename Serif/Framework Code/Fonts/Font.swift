@@ -9,5 +9,5 @@
 import Foundation
 
 public class Font {
-	
+	public var title: String? { return "" }
 }

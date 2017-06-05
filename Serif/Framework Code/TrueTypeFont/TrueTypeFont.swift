@@ -33,7 +33,7 @@ public class TrueTypeFont: Font {
 	public var locations: Locations!
 	public var glyphs: Glyphs!
 	
-	public var title: String? { return self.names?.name(with: .fullName) }
+	public override var title: String? { return self.names?.name(with: .fullName) }
 	public var unitsPerEm: Int { return Int(self.header?.unitsPerEm ?? 1) }
 	
 	public var size: CGSize { return self.header.size }
