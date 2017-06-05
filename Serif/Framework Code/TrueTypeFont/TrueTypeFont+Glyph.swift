@@ -52,7 +52,7 @@ extension TrueTypeFont {
 		let components: [Component]?
 		weak var font: TrueTypeFont!
 		
-		init(_ incoming: IndexedByteArray, index: Int) throws {
+		init(_ incoming: ByteArrayParser, index: Int) throws {
 			self.index = index
 			var bytes = incoming
 			let count = try bytes.nextInt16()

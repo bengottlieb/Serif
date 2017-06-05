@@ -43,7 +43,7 @@ public class FontCollection {
 		do {
 			try self.data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
 				let array = Array(UnsafeBufferPointer(start: ptr, count: self.data.count))
-				var bytes = IndexedByteArray(bytes: array, index: 0)
+				var bytes = ByteArrayParser(bytes: array)
 				try self.parse(bytes: &bytes)
 			}
 		} catch {
@@ -51,7 +51,7 @@ public class FontCollection {
 		}
 	}
 	
-	func parse(bytes: inout IndexedByteArray) throws {
+	func parse(bytes: inout ByteArrayParser) throws {
 		let identifier = try bytes.nextUInt32().string
 		
 		if identifier != "ttcf" { throw Error.badHeader }
@@ -61,7 +61,7 @@ public class FontCollection {
 		
 		for _ in 0..<fontCount {
 			let offset = Int(try bytes.nextUInt32())
-			let parser = IndexedByteArray(bytes: bytes.bytes, index: offset)
+			let parser = ByteArrayParser(bytes: bytes.bytes, index: offset)
 			if let font = TrueTypeFont(bytes: parser) {
 				self.fonts.append(font)
 			}

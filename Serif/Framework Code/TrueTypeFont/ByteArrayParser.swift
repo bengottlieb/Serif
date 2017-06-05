@@ -8,21 +8,24 @@
 
 import Foundation
 
-struct IndexedByteArray {
+struct ByteArrayParser {
 	enum IndexedByteError: Error { case outOfBounds }
 	let bytes: [UInt8]
 	var index = 0
-	var count: Int { return self.bytes.count }
+	var start = 0
+	let count: Int
 	
-	init(bytes: [UInt8], index: Int = 0) {
+	init(bytes: [UInt8], index: Int = 0, length: Int? = nil) {
 		self.bytes = bytes
-		self.index = index
+		self.start = index
+		self.count = length ?? (bytes.count - index)
 	}
 	
 	mutating func skip(_ count: Int) { self.index += count }
 	
 	mutating func jump(to: Int) { self.index = to }
 	
+	var currentIndex: Int { return self.start + self.index }
 	mutating func getNext(n: Int) throws -> [UInt8] {
 		let result = try self.getRange(Int(self.index)..<Int(self.index + n))
 		self.index += n
@@ -36,50 +39,50 @@ struct IndexedByteArray {
 	
 	mutating func nextInt8() throws -> Int8 {
 		if self.index >= self.count { throw IndexedByteError.outOfBounds }
-		let result = Int8(bytes[self.index])
+		let result = Int8(bytes[self.currentIndex])
 		self.index += 1
 		return result
 	}
 	
 	mutating func nextUInt8() throws -> UInt8 {
 		if self.index > (self.count - 1) { throw IndexedByteError.outOfBounds }
-		let result = bytes[self.index]
+		let result = bytes[self.currentIndex]
 		self.index += 1
 		return result
 	}
 	
 	mutating func nextInt16() throws -> Int16 {
 		if self.index > (self.count - 2) { throw IndexedByteError.outOfBounds }
-		let result = bytes.int16(at: self.index)
+		let result = bytes.int16(at: self.currentIndex)
 		self.index += 2
 		return result
 	}
 	
 	mutating func nextUInt16() throws -> UInt16 {
 		if self.index > (self.count - 2) { throw IndexedByteError.outOfBounds }
-		let result = bytes.uint16(at: self.index)
+		let result = bytes.uint16(at: self.currentIndex)
 		self.index += 2
 		return result
 	}
 	
 	mutating func nextInt32() throws -> Int32 {
 		if self.index > (self.count - 4) { throw IndexedByteError.outOfBounds }
-		let result = bytes.int32(at: self.index)
+		let result = bytes.int32(at: self.currentIndex)
 		self.index += 4
 		return result
 	}
 	
 	mutating func nextUInt32() throws -> UInt32 {
 		if self.index > (self.count - 4) { throw IndexedByteError.outOfBounds }
-		let result = bytes.uint32(at: self.index)
+		let result = bytes.uint32(at: self.currentIndex)
 		self.index += 4
 		return result
 	}
 	
 	mutating func nextInt64() throws -> Int64 {
 		if self.index > (self.count - 8) { throw IndexedByteError.outOfBounds }
-		let l1 = bytes.uint32(at: self.index)
-		let l2 = bytes.uint32(at: self.index + 4)
+		let l1 = bytes.uint32(at: self.currentIndex)
+		let l2 = bytes.uint32(at: self.currentIndex + 4)
 		self.index += 8
 		return Int64(l1) << 32 | Int64(l2)
 	}
@@ -100,7 +103,7 @@ struct IndexedByteArray {
 	
 	func uint32(offsetBy offset: Int) throws -> UInt32 {
 		if self.index > (self.count - 4) { throw IndexedByteError.outOfBounds }
-		let result = bytes.uint32(at: self.index + offset)
+		let result = bytes.uint32(at: self.currentIndex + offset)
 		return result
 	}
 }

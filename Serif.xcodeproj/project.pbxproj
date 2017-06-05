@@ -20,7 +20,7 @@
 		B51FC88E1EE4AFC2004B68E2 /* GlyphWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51FC8851EE4AFC2004B68E2 /* GlyphWindowController.swift */; };
 		B51FC88F1EE4AFC2004B68E2 /* GlyphWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B51FC8861EE4AFC2004B68E2 /* GlyphWindowController.xib */; };
 		B51FC8901EE4AFC2004B68E2 /* GlyphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51FC8881EE4AFC2004B68E2 /* GlyphView.swift */; };
-		B51FC89C1EE4AFCF004B68E2 /* IndexedByteArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51FC8921EE4AFCF004B68E2 /* IndexedByteArray.swift */; };
+		B51FC89C1EE4AFCF004B68E2 /* ByteArrayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51FC8921EE4AFCF004B68E2 /* ByteArrayParser.swift */; };
 		B51FC89D1EE4AFCF004B68E2 /* TrueTypeFont+CharacterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51FC8931EE4AFCF004B68E2 /* TrueTypeFont+CharacterMap.swift */; };
 		B51FC89E1EE4AFCF004B68E2 /* TrueTypeFont+Glyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51FC8941EE4AFCF004B68E2 /* TrueTypeFont+Glyph.swift */; };
 		B51FC89F1EE4AFCF004B68E2 /* TrueTypeFont+GlyphDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51FC8951EE4AFCF004B68E2 /* TrueTypeFont+GlyphDrawing.swift */; };
@@ -84,7 +84,7 @@
 		B51FC8851EE4AFC2004B68E2 /* GlyphWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlyphWindowController.swift; sourceTree = "<group>"; };
 		B51FC8861EE4AFC2004B68E2 /* GlyphWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GlyphWindowController.xib; sourceTree = "<group>"; };
 		B51FC8881EE4AFC2004B68E2 /* GlyphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlyphView.swift; sourceTree = "<group>"; };
-		B51FC8921EE4AFCF004B68E2 /* IndexedByteArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexedByteArray.swift; path = "Serif/Framework Code/TrueTypeFont/IndexedByteArray.swift"; sourceTree = "<group>"; };
+		B51FC8921EE4AFCF004B68E2 /* ByteArrayParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ByteArrayParser.swift; path = "Serif/Framework Code/TrueTypeFont/ByteArrayParser.swift"; sourceTree = "<group>"; };
 		B51FC8931EE4AFCF004B68E2 /* TrueTypeFont+CharacterMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TrueTypeFont+CharacterMap.swift"; sourceTree = "<group>"; };
 		B51FC8941EE4AFCF004B68E2 /* TrueTypeFont+Glyph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TrueTypeFont+Glyph.swift"; sourceTree = "<group>"; };
 		B51FC8951EE4AFCF004B68E2 /* TrueTypeFont+GlyphDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TrueTypeFont+GlyphDrawing.swift"; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 		B51FC8551EE4AECF004B68E2 = {
 			isa = PBXGroup;
 			children = (
-				B51FC8921EE4AFCF004B68E2 /* IndexedByteArray.swift */,
+				B51FC8921EE4AFCF004B68E2 /* ByteArrayParser.swift */,
 				B5701E601EE4EF220081E7D0 /* Fonts */,
 				B51FC8911EE4AFCF004B68E2 /* TrueTypeFont */,
 				B51FC8611EE4AECF004B68E2 /* Infrastructure */,
@@ -221,11 +221,11 @@
 			isa = PBXGroup;
 			children = (
 				B51FC89B1EE4AFCF004B68E2 /* TrueTypeFont.swift */,
+				B51FC8971EE4AFCF004B68E2 /* TrueTypeFont+Header.swift */,
 				B51FC8931EE4AFCF004B68E2 /* TrueTypeFont+CharacterMap.swift */,
 				B51FC8961EE4AFCF004B68E2 /* TrueTypeFont+Glyphs.swift */,
 				B51FC8941EE4AFCF004B68E2 /* TrueTypeFont+Glyph.swift */,
 				B51FC8951EE4AFCF004B68E2 /* TrueTypeFont+GlyphDrawing.swift */,
-				B51FC8971EE4AFCF004B68E2 /* TrueTypeFont+Header.swift */,
 				B51FC8981EE4AFCF004B68E2 /* TrueTypeFont+Locations.swift */,
 				B51FC8991EE4AFCF004B68E2 /* TrueTypeFont+Metrics.swift */,
 				B51FC89A1EE4AFCF004B68E2 /* TrueTypeFont+Names.swift */,
@@ -404,7 +404,7 @@
 			files = (
 				B51FC8A31EE4AFCF004B68E2 /* TrueTypeFont+Metrics.swift in Sources */,
 				B5701E631EE4EF220081E7D0 /* Font.swift in Sources */,
-				B51FC89C1EE4AFCF004B68E2 /* IndexedByteArray.swift in Sources */,
+				B51FC89C1EE4AFCF004B68E2 /* ByteArrayParser.swift in Sources */,
 				B51FC89D1EE4AFCF004B68E2 /* TrueTypeFont+CharacterMap.swift in Sources */,
 				B51FC8A11EE4AFCF004B68E2 /* TrueTypeFont+Header.swift in Sources */,
 				B51FC89E1EE4AFCF004B68E2 /* TrueTypeFont+Glyph.swift in Sources */,
@@ -708,6 +708,7 @@
 				B5701E591EE4B3F10081E7D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -10,7 +10,7 @@ import Foundation
 
 // Format docs: https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6glyf.html
 
-extension IndexedByteArray {
+extension ByteArrayParser {
 	mutating func nextCoordinate(with flag: UInt8, previous: Int16, isShortMask: UInt8, isSameMask: UInt8) throws -> Int16 {
 		var value: Int16
 		let isShortValue = (flag & isShortMask) > 0
@@ -42,7 +42,7 @@ extension TrueTypeFont {
 			
 			if let glyph = self.glyphs[index] { return glyph }
 			
-			var bytes = glyfTable.indexed
+			var bytes = glyfTable.parser
 			bytes.jump(to: locations.offsets[index])
 			do {
 				var glyph = try Glyph(bytes, index: index)

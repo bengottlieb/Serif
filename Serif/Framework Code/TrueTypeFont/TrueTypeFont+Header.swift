@@ -34,7 +34,7 @@ extension TrueTypeFont {
 		public var bbox: CGRect { return CGRect(origin: self.origin, size: self.size) }
 		
 		init(header: Table, maxProfile: Table) throws {
-			var bytes = header.indexed
+			var bytes = header.parser
 			
 			self.version = CGFloat(try bytes.nextFixed())
 			self.fontRevision = CGFloat(try bytes.nextFixed())
@@ -54,7 +54,7 @@ extension TrueTypeFont {
 			self.indexToLocFormat = try bytes.nextInt16()
 			self.glyphDataFormat = try bytes.nextInt16()
 			
-			bytes = maxProfile.indexed
+			bytes = maxProfile.parser
 			bytes.skip(4)
 			self.numberOfGlyphs = try bytes.nextUInt16()
 			

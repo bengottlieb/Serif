@@ -48,7 +48,7 @@ public class TrueTypeFont: Font {
 		do {
 			try self.data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
 				let array = Array(UnsafeBufferPointer(start: ptr, count: self.data.count))
-				var bytes = IndexedByteArray(bytes: array, index: 0)
+				var bytes = ByteArrayParser(bytes: array, index: 0)
 				try self.parse(bytes: &bytes)
 			}
 		} catch {
@@ -56,7 +56,7 @@ public class TrueTypeFont: Font {
 		}
 	}
 	
-	convenience init?(bytes: IndexedByteArray) {
+	convenience init?(bytes: ByteArrayParser) {
 		self.init(data: nil)
 		
 		do {
@@ -74,7 +74,7 @@ public class TrueTypeFont: Font {
 		return nil
 	}
 	
-	func parse(bytes: inout IndexedByteArray) throws {
+	func parse(bytes: inout ByteArrayParser) throws {
 		self.scalarType = try bytes.nextUInt32()
 		self.tableCount = try bytes.nextUInt16()
 		self.searchRange = try bytes.nextUInt16()
@@ -82,7 +82,7 @@ public class TrueTypeFont: Font {
 		self.rangeShift = try bytes.nextUInt16()
 		
 		for _ in 0..<self.tableCount {
-			let info = try Table(tag: try bytes.nextUInt32(), checksum: try bytes.nextUInt32(), offset: try bytes.nextUInt32(), length: try bytes.nextUInt32(), bytes: bytes.bytes)
+			let info = try Table(tag: try bytes.nextUInt32(), checksum: try bytes.nextUInt32(), offset: Int(try bytes.nextUInt32()), length: Int(try bytes.nextUInt32()), bytes: bytes.bytes)
 			
 			self.tables.append(info)
 		}
@@ -107,35 +107,25 @@ public class TrueTypeFont: Font {
 		
 		let tag: String
 		let checksum: UInt32
-		let offset: UInt32
-		var length: UInt32
-		var bytes: [UInt8]
+		var parser: ByteArrayParser
 		
 		var description: String {
-			return "\(self.tag): \(self.offset) -> \(self.length)"
+			return "\(self.tag): \(self.parser.count) b"
 		}
 		var debugDescription: String { return self.description }
 		
-		init(platformID: UInt16, platformSpecificID: UInt16, offset: UInt32, length: UInt32, bytes: [UInt8]) {
+		init(platformID: UInt16, platformSpecificID: UInt16, offset: Int, length: Int, bytes: [UInt8]) {
 			self.tag = "\(platformID),\(platformSpecificID)"
 			self.checksum = 0
-			self.offset = offset
-			self.length = length
-			self.bytes = Array(bytes[Int(offset)..<Int(offset + length)])
+			self.parser = ByteArrayParser(bytes: Array(bytes[Int(offset)..<Int(offset + length)]), index: 0, length: length)
 		}
 		
-		init(tag: UInt32, checksum: UInt32, offset: UInt32, length: UInt32, bytes: [UInt8]) throws {
+		init(tag: UInt32, checksum: UInt32, offset: Int, length: Int, bytes: [UInt8]) throws {
 			if Int(offset + length) > bytes.count { throw Error.tableHeaderOutOfBounds }
 			
 			self.tag = tag.string
 			self.checksum = checksum
-			self.offset = offset
-			self.length = length
-			self.bytes = Array(bytes[Int(offset)..<Int(offset + length)])
-		}
-		
-		var indexed: IndexedByteArray {
-			return IndexedByteArray(bytes: self.bytes, index: 0)
+			self.parser = ByteArrayParser(bytes: Array(bytes[Int(offset)..<Int(offset + length)]), index: 0, length: length)
 		}
 	}
 }

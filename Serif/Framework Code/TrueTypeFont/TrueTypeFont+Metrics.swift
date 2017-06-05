@@ -26,7 +26,7 @@ extension TrueTypeFont {
 		let metrics: [HorizontalMetric]
 		
 		init(headerTable: Table, metricsTable: Table?) throws {
-			var bytes = headerTable.indexed
+			var bytes = headerTable.parser
 			
 			self.version = CGFloat(try bytes.nextFixed())
 			self.ascent = try bytes.nextInt16()
@@ -45,7 +45,7 @@ extension TrueTypeFont {
 			self.widthsCount = try bytes.nextUInt16()
 			
 			var metrics: [HorizontalMetric] = []
-			if var mBytes = metricsTable?.indexed {
+			if var mBytes = metricsTable?.parser {
 				for _ in 0..<self.widthsCount {
 					let metric = HorizontalMetric(advanceWidth: try mBytes.nextUInt16(), leftSideBearing: try mBytes.nextInt16())
 					metrics.append(metric)

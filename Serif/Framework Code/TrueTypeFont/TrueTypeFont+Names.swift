@@ -26,7 +26,7 @@ extension TrueTypeFont {
 		
 		let names: [Name]
 		init(namesTable: Table) throws {
-			var bytes = namesTable.indexed
+			var bytes = namesTable.parser
 			
 			bytes.skip(2)			//skip the version
 			let nameCount = try bytes.nextUInt16()

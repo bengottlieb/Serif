@@ -26,6 +26,8 @@ class FontWindowController: NSWindowController {
 		NotificationCenter.default.addObserver(self, selector: #selector(applicationWillTerminate), name: .NSApplicationWillTerminate, object: nil)
 		
 		fonts.forEach {
+			print("Attempting to re-open: \($0)")
+
 			if let url = URL(string: $0), let collection = FontCollection.collection(at: url) {
 				self.show(fontCollection: collection)
 			}

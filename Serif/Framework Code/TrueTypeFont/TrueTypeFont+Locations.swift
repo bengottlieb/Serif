@@ -14,7 +14,7 @@ extension TrueTypeFont {
 		let glyphCount: Int
 		
 		init(locaTable: Table, header: Header) throws {
-			var bytes = locaTable.indexed
+			var bytes = locaTable.parser
 			var offsets: [Int] = []
 			
 			if header.indexToLocFormat == 0 {			//UInt16 offsets

@@ -13,7 +13,7 @@ extension TrueTypeFont {
 		let tables: [Table]
 		
 		init(cmapTable: Table) throws {
-			var bytes = cmapTable.indexed
+			var bytes = cmapTable.parser
 			
 			bytes.skip(2)
 			let tableCount = try bytes.nextUInt16()
@@ -26,7 +26,7 @@ extension TrueTypeFont {
 //				let nextOffset = (i < (tableCount - 1)) ? try bytes.uint32(offsetBy: 4) : UInt32(bytes.count)
 //				let length = nextOffset - offset
 				
-				let tableInfo = Table(platformID: platformID, platformSpecificID: platformSpecificID, offset: offset, length: 0, bytes: bytes.bytes)
+				let tableInfo = Table(platformID: platformID, platformSpecificID: platformSpecificID, offset: Int(offset), length: 0, bytes: bytes.bytes)
 				tables.append(tableInfo)
 			}
 			self.tables = tables
