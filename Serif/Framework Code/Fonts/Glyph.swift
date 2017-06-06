@@ -10,7 +10,7 @@ import Foundation
 import CrossPlatformKit
 
 public protocol Glyph {
-	func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor?, includingPoints: Bool, scaleToFont: Bool)
+	func draw(in bounds: CGRect, context ctx: CGContext, from font: Font, color: UXColor?, includingPoints: Bool, scaleToFont: Bool)
 	
 	var index: Int { get }
 	var descriptor: FontDescriptor! { get }

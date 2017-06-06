@@ -12,9 +12,9 @@ import Serif
 class GlyphCollectionViewItem: NSCollectionViewItem {
 	static let identifier = "GlyphCollectionViewItem"
 	
-	var glyph: Glyph? { didSet {
-		self.glyphView?.glyph = self.glyph
-	}}
+	var glyph: Glyph? { didSet { self.glyphView?.glyph = self.glyph }}
+	var font: Font? { didSet { self.glyphView?.font = self.font }}
+
 	@IBOutlet var glyphView: GlyphView!
 	
 	
