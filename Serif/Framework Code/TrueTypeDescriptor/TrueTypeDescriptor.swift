@@ -28,7 +28,6 @@ public class TrueTypeDescriptor: FontDescriptor {
 	
 	public var header: Header!
 	public var metrics: Metrics!
-	public var characterMap: CharacterMap!
 	public var names: Names!
 	public var locations: Locations!
 	
@@ -37,7 +36,7 @@ public class TrueTypeDescriptor: FontDescriptor {
 	
 	public var size: CGSize { return self.header.size }
 	public var origin: CGPoint { return self.header.origin }
-	public var bbox: CGRect { return self.header.bbox }
+	override public var bbox: CGRect { return self.header.bbox }
 	
 	public convenience init?(url: URL) {
 		guard let data = try? Data(contentsOf: url) else {
@@ -101,7 +100,7 @@ public class TrueTypeDescriptor: FontDescriptor {
 		
 		if let names = self.table(tag: .names) { self.names = try Names(namesTable: names) }
 		if let horiz = self.table(tag: .horizontalHeader)  { self.metrics = try Metrics(headerTable: horiz, metricsTable: self.table(tag: .horizontalMetrics)) }
-		if let cmap = self.table(tag: .characterMap)  { self.characterMap = try CharacterMap(cmapTable: cmap) }
+		if let cmap = self.table(tag: .characterMap)  { self.characterMap = try TrueTypeCharacterMap(cmapTable: cmap) }
 		if let loca = self.table(tag: .locations), let header = self.header { self.locations = try Locations(locaTable: loca, header: header) }
 		if let glyf = self.table(tag: .glyphs), let locations = self.locations  { self.glyphs = try Glyphs(in: self, glyfTable: glyf, locations: locations) }
 	}

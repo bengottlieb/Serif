@@ -21,7 +21,10 @@ class GlyphView: NSView {
 		
 		glyph.draw(in: self.bounds, context: ctx, color: nil, includingPoints: self.showPoints, scaleToFont: self.scaleToFont)
 		
-		let attr = NSAttributedString(string: "\(glyph.index)", attributes: [NSFontAttributeName: NSFont.systemFont(ofSize: 10)])
+		var indexText = "\(glyph.index)"
+		if let cid = glyph.descriptor.characterMap.map(gid: glyph.index) { indexText += "/\(cid)" }
+		
+		let attr = NSAttributedString(string: indexText, attributes: [NSFontAttributeName: NSFont.systemFont(ofSize: 10)])
 		attr.draw(at: CGPoint(x: self.bounds.width - (attr.size().width + 1), y: 0))
 		
 		NSColor(white: 0.9, alpha: 1.0).set()

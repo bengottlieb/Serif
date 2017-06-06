@@ -50,7 +50,7 @@ extension TrueTypeDescriptor {
 		let instructions: [UInt8]?
 		let points: [Point]?
 		let components: [Component]?
-		weak var font: TrueTypeDescriptor!
+		weak var descriptor: FontDescriptor!
 		
 		init(_ incoming: ByteArrayParser, index: Int) throws {
 			self.index = index

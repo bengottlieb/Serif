@@ -16,7 +16,7 @@ import CrossPlatformKit
 extension TrueTypeDescriptor.TrueTypeGlyph {
 	public func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
 		let frame = includingPoints ? bounds.insetBy(dx: 20, dy: 20) : bounds
-		let bbox = scaleToFont ? self.font.bbox : self.bbox
+		let bbox = scaleToFont ? self.descriptor.bbox : self.bbox
 		let fontWidth = bbox.width - bbox.origin.x
 		let fontHeight = bbox.height - bbox.origin.y
 		let scale = min(frame.width / fontWidth, frame.height / fontHeight)
@@ -31,7 +31,7 @@ extension TrueTypeDescriptor.TrueTypeGlyph {
 				transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 				ctx.concatenate(transform)
 				
-				let glyph = self.font.glyphs[component.index] as? TrueTypeDescriptor.TrueTypeGlyph
+				let glyph = self.descriptor.glyphs[component.index] as? TrueTypeDescriptor.TrueTypeGlyph
 				glyph?.draw(in: ctx, includingPoints: includingPoints)
 				
 				ctx.restoreGState()

@@ -34,7 +34,7 @@ extension ByteArrayParser {
 
 extension TrueTypeDescriptor {	
 	public class Glyphs: GlyphCollection {
-		weak var font: TrueTypeDescriptor!
+		weak var descriptor: TrueTypeDescriptor!
 		
 		public var count: Int { return self.glyphs.count }
 		public subscript(_ index: Int) -> Glyph? {
@@ -46,7 +46,7 @@ extension TrueTypeDescriptor {
 			bytes.jump(to: locations.offsets[index])
 			do {
 				var glyph = try TrueTypeGlyph(bytes, index: index)
-				glyph.font = self.font
+				glyph.descriptor = self.descriptor
 				self.glyphs[index] = glyph
 				return glyph
 			} catch {
@@ -58,8 +58,8 @@ extension TrueTypeDescriptor {
 		
 		let locations: Locations
 		let glyfTable: Table
-		init(in font: TrueTypeDescriptor, glyfTable: Table, locations: Locations) throws {
-			self.font = font
+		init(in descriptor: TrueTypeDescriptor, glyfTable: Table, locations: Locations) throws {
+			self.descriptor = descriptor
 			self.glyfTable = glyfTable
 			self.glyphs = [TrueTypeGlyph?](repeating: nil, count: locations.glyphCount)
 			self.locations = locations

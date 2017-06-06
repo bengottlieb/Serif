@@ -9,16 +9,58 @@
 import Foundation
 
 extension TrueTypeDescriptor {
-	public struct CharacterMap {
+	public struct TrueTypeCharacterMap: CharacterMap {
+		enum Error: Swift.Error { case noCharacterMapFind }
+		
 		let subtables: [Subtable]
 		
 		enum Platform: UInt16 { case unicode = 0, mac = 1, microsoft = 3, unknown }
 		
+		public func map(cid: Int) -> Int? { return self.primaryTable?.map(cid: cid) }
+		public func map(gid: Int) -> Int? { return self.primaryTable?.map(gid: gid) }
+
 		struct Subtable {
 			let platform: Platform
 			let platformSpecific: Int
-			let parser: ByteArrayParser
+			var parser: ByteArrayParser
+			var mapping: [Int] = []
+			
+			
+			init(platform: Platform, platformSpecific: Int, parser: ByteArrayParser) {
+				self.platform = platform
+				self.platformSpecific = platformSpecific
+				self.parser = parser
+			}
+			
+			mutating func parse() throws {
+				let version = try self.parser.nextUInt16()
+				_ = self.parser.skip(2)		// size
+				_ = self.parser.skip(2)		// language code
+				
+				switch version {
+				case 0:
+					for _ in 0..<256 {
+						self.mapping.append(Int(try self.parser.nextUInt8()))
+					}
+					
+				default: break
+				}
+			}
+			
+			func map(cid: Int) -> Int? {
+				if cid < self.mapping.count { return self.mapping[cid] }
+				return nil
+			}
+			
+			func map(gid: Int) -> Int? {
+				for i in 0..<self.mapping.count {
+					if self.mapping[i] == gid { return i }
+				}
+				return nil
+			}
 		}
+		
+		var primaryTable: Subtable!
 		
 		init(cmapTable: Table) throws {
 			var bytes = cmapTable.parser
@@ -49,9 +91,18 @@ extension TrueTypeDescriptor {
 				tables.append(tableInfo)
 			}
 			
-			self.subtables = tables
+			self.subtables = tables.sorted { cmap1, cmap2 in
+				if cmap1.platform == .mac { return true }
+				if cmap1.platform == .unicode { return true }
+				return false
+			}
+			
+			self.primaryTable = self.subtables.first
+			guard self.primaryTable != nil else { throw Error.noCharacterMapFind }
+			
+			try self.primaryTable.parse()
 		}
+		
+		
 	}
-	
-	
 }
