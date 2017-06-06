@@ -9,6 +9,14 @@
 import Cocoa
 
 extension FontWindowController: NSCollectionViewDelegate {
+	
+	func updateLayoutSizes() {
+		if let layout = self.glyphCollectionView?.collectionViewLayout as? NSCollectionViewFlowLayout, let font = self.font {
+			layout.itemSize = CGSize(width: font.lineHeight, height: font.lineHeight)
+			self.glyphCollectionView?.reloadData()
+		}
+	}
+
 	public func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
 		guard let path = indexPaths.first,
 			let cell = collectionView.item(at: path) as? GlyphCollectionViewItem, let glyph = cell.glyph, let font = self.font else { return }

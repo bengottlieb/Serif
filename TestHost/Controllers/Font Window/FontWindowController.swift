@@ -15,7 +15,10 @@ class FontWindowController: NSWindowController {
 	@IBOutlet var fontSizeSlider: NSSlider!
 	@IBOutlet var fontSizeLabel: NSTextField!
 	
-	var pointSize = 14
+	var pointSize: CGFloat = 14 { didSet {
+		self.font = self.font?.font(ofSize: self.pointSize)
+		self.updateLayoutSizes()
+	}}
 	var descriptors: [FontDescriptor] = []
 	var url: URL?
 	var font: Font? { didSet {
@@ -116,6 +119,7 @@ class FontWindowController: NSWindowController {
 	
 	func load(descriptor: FontDescriptor) -> Bool {
 		self.font = Font(descriptor: descriptor, size: 12)
+		self.updateLayoutSizes()
 		return self.font != nil
 	}
 	
@@ -133,16 +137,16 @@ class FontWindowController: NSWindowController {
 		return (self.font?.descriptor.title ?? "Untitled Font") + ", \(count) glyphs"
 	}
 	
+	var layout: NSCollectionViewFlowLayout!
     override func windowDidLoad() {
         super.windowDidLoad()
+		
+		self.layout = NSCollectionViewFlowLayout()
+		self.glyphCollectionView.collectionViewLayout = self.layout
 		
 		self.glyphCollectionView.register(NSNib(nibNamed: "GlyphCollectionViewItem", bundle: Bundle.main), forItemWithIdentifier: GlyphCollectionViewItem.identifier)
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
-	
-	func updateGlyphsCollection() {
-		
-	}
 	
 	@IBAction func didSelectFont(_ sender: Any?) {
 		let index = self.fontMenu.indexOfSelectedItem
@@ -153,5 +157,6 @@ class FontWindowController: NSWindowController {
 	
 	@IBAction func fontSizeChanged(_ sender: Any?) {
 		self.fontSizeLabel.stringValue = "\(Int(self.fontSizeSlider.doubleValue)) pt."
+		self.pointSize = CGFloat(self.fontSizeSlider.doubleValue)
 	}
 }

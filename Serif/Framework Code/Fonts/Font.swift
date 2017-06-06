@@ -10,19 +10,24 @@ import Foundation
 
 public class Font {
 	public let descriptor: FontDescriptor
-	public let size: Int
+	public let size: CGFloat
 	
 	public var ascent: CGFloat { return self.convertToDeviceMetric(from: self.descriptor.metrics.ascent) }
 	public var descent: CGFloat { return self.convertToDeviceMetric(from: self.descriptor.metrics.descent) }
 	public var lineGap: CGFloat { return self.convertToDeviceMetric(from: self.descriptor.metrics.lineGap) }
+	public var lineHeight: CGFloat { return self.ascent + abs(self.descent) + self.lineGap }
 	
-	public init(descriptor: FontDescriptor, size: Int) {
+	public func font(ofSize size: CGFloat) -> Font {
+		return Font(descriptor: self.descriptor, size: size)
+	}
+	
+	public init(descriptor: FontDescriptor, size: CGFloat) {
 		self.descriptor = descriptor
 		self.size = size
 	}
 	
 	func convertToDeviceMetric(from value: Int) -> CGFloat {
-		return CGFloat(value * 72) / 10000
+		return self.size * CGFloat(value) / 1000
 	}
 }
 
