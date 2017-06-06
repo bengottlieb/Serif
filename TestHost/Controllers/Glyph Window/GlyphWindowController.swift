@@ -14,10 +14,9 @@ class GlyphWindowController: NSWindowController {
 	var glyph: Glyph?
 	var font: Font?
 	
-	static func show(glyph: Glyph, from font: Font) -> GlyphWindowController {
+	static func show(glyph: Glyph) -> GlyphWindowController {
 		let controller = GlyphWindowController(windowNibName: "GlyphWindowController")
 		controller.glyph = glyph
-		controller.font = font
 		
 		controller.showWindow(nil)
 		return controller
@@ -28,7 +27,6 @@ class GlyphWindowController: NSWindowController {
 		self.glyphView.scaleToFont = false
 		self.glyphView.showPoints = true
 		self.glyphView.glyph = self.glyph
-		self.glyphView.font = self.font
     }
     
 }

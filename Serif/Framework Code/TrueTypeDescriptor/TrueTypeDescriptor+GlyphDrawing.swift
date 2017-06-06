@@ -14,7 +14,7 @@ import CrossPlatformKit
 
 
 extension TrueTypeDescriptor.TrueTypeGlyph {
-	public func draw(in bounds: CGRect, context ctx: CGContext, from font: Font, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
+	public func draw(in bounds: CGRect, context ctx: CGContext, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
 		
 		let frame = includingPoints ? bounds.insetBy(dx: 20, dy: 20) : bounds
 		let scale: CGFloat
@@ -45,7 +45,7 @@ extension TrueTypeDescriptor.TrueTypeGlyph {
 				ctx.concatenate(transform)
 				
 				let glyph = self.descriptor.glyphs[component.index] as? TrueTypeDescriptor.TrueTypeGlyph
-				glyph?.draw(in: ctx, from: font, includingPoints: includingPoints)
+				glyph?.draw(in: ctx, includingPoints: includingPoints)
 				
 				ctx.restoreGState()
 			}
@@ -53,12 +53,12 @@ extension TrueTypeDescriptor.TrueTypeGlyph {
 			var transform = CGAffineTransform(translationX: -origin.x + frame.origin.x, y: -origin.y + frame.origin.y)
 			transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 			ctx.concatenate(transform)
-			self.draw(in: ctx, from: font, includingPoints: includingPoints)
+			self.draw(in: ctx, includingPoints: includingPoints)
 		}
 		ctx.restoreGState()
 	}
 	
-	func draw(in ctx: CGContext, from font: Font, includingPoints: Bool = false) {
+	func draw(in ctx: CGContext, includingPoints: Bool = false) {
 		for i in 0..<self.numberOfContours {
 			guard let path = self.nthContour(i) else { continue }
 			
