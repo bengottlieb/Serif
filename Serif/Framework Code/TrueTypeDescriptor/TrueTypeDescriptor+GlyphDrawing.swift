@@ -15,11 +15,24 @@ import CrossPlatformKit
 
 extension TrueTypeDescriptor.TrueTypeGlyph {
 	public func draw(in bounds: CGRect, context ctx: CGContext, from font: Font, color: UXColor? = nil, includingPoints: Bool = false, scaleToFont: Bool = true) {
+		
 		let frame = includingPoints ? bounds.insetBy(dx: 20, dy: 20) : bounds
-		let bbox = scaleToFont ? self.descriptor.bbox : self.bbox
-		let fontWidth = bbox.width - bbox.origin.x
-		let fontHeight = bbox.height - bbox.origin.y
-		let scale = min(frame.width / fontWidth, frame.height / fontHeight)
+		let scale: CGFloat
+		let origin: CGPoint
+		
+		if scaleToFont {
+			let bbox = self.descriptor.bbox
+			let fontWidth = bbox.width
+			let fontHeight = CGFloat(self.descriptor.metrics.ascent + self.descriptor.metrics.descent)
+			scale = min(frame.width / fontWidth, frame.height / fontHeight)
+			origin = self.descriptor.bbox.origin
+		} else {
+			let bbox = self.bbox
+			let fontWidth = bbox.width - bbox.origin.x
+			let fontHeight = bbox.height - bbox.origin.y
+			scale = min(frame.width / fontWidth, frame.height / fontHeight)
+			origin = self.bbox.origin
+		}
 		
 		ctx.saveGState()
 		if let color = color { ctx.setFillColor(color.cgColor) }
@@ -27,7 +40,7 @@ extension TrueTypeDescriptor.TrueTypeGlyph {
 		if let components = self.components {
 			for component in components {
 				ctx.saveGState()
-				var transform = CGAffineTransform(translationX: -bbox.origin.x + component.ctm.tx + frame.origin.x, y: -bbox.origin.y + component.ctm.ty + frame.origin.y)
+				var transform = CGAffineTransform(translationX: -origin.x + component.ctm.tx + frame.origin.x, y: -origin.y + component.ctm.ty + frame.origin.y)
 				transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 				ctx.concatenate(transform)
 				
@@ -37,7 +50,7 @@ extension TrueTypeDescriptor.TrueTypeGlyph {
 				ctx.restoreGState()
 			}
 		} else {
-			var transform = CGAffineTransform(translationX: -bbox.origin.x + frame.origin.x, y: -bbox.origin.y + frame.origin.y)
+			var transform = CGAffineTransform(translationX: -origin.x + frame.origin.x, y: -origin.y + frame.origin.y)
 			transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
 			ctx.concatenate(transform)
 			self.draw(in: ctx, from: font, includingPoints: includingPoints)

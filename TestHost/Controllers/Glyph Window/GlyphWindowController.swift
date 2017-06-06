@@ -28,6 +28,7 @@ class GlyphWindowController: NSWindowController {
 		self.glyphView.scaleToFont = false
 		self.glyphView.showPoints = true
 		self.glyphView.glyph = self.glyph
+		self.glyphView.font = self.font
     }
     
 }

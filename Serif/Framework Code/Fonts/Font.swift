@@ -22,7 +22,7 @@ public class Font {
 	}
 	
 	func convertToDeviceMetric(from value: Int) -> CGFloat {
-		return CGFloat(value * 72) / 1000
+		return CGFloat(value * 72) / 10000
 	}
 }
 
