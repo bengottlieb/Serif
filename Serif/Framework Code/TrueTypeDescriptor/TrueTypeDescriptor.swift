@@ -27,7 +27,6 @@ public class TrueTypeDescriptor: FontDescriptor {
 	public override var numberOfGlyphs: Int { return self.glyphs?.count ?? 0 }
 	
 	public var header: Header!
-	public var metrics: Metrics!
 	public var names: Names!
 	public var locations: Locations!
 	
@@ -99,7 +98,7 @@ public class TrueTypeDescriptor: FontDescriptor {
 		}
 		
 		if let names = self.table(tag: .names) { self.names = try Names(namesTable: names) }
-		if let horiz = self.table(tag: .horizontalHeader)  { self.metrics = try Metrics(headerTable: horiz, metricsTable: self.table(tag: .horizontalMetrics)) }
+		if let horiz = self.table(tag: .horizontalHeader)  { self.metrics = try TrueTypeMetrics(headerTable: horiz, metricsTable: self.table(tag: .horizontalMetrics)) }
 		if let cmap = self.table(tag: .characterMap)  { self.characterMap = try TrueTypeCharacterMap(cmapTable: cmap) }
 		if let loca = self.table(tag: .locations), let header = self.header { self.locations = try Locations(locaTable: loca, header: header) }
 		if let glyf = self.table(tag: .glyphs), let locations = self.locations  { self.glyphs = try Glyphs(in: self, glyfTable: glyf, locations: locations) }

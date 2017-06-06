@@ -34,6 +34,7 @@
 		B51FC8A91EE4B046004B68E2 /* Serif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC85F1EE4AECF004B68E2 /* Serif.framework */; };
 		B51FC8AB1EE4B05D004B68E2 /* CrossPlatformKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC8A61EE4B02D004B68E2 /* CrossPlatformKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B51FC8AC1EE4B05F004B68E2 /* Serif.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC85F1EE4AECF004B68E2 /* Serif.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5366AEB1EE6B4A30024297D /* DescriptorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5366AEA1EE6B4A30024297D /* DescriptorProtocols.swift */; };
 		B5701E531EE4B3F10081E7D0 /* SerifTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E521EE4B3F10081E7D0 /* SerifTests.swift */; };
 		B5701E551EE4B3F10081E7D0 /* Serif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51FC85F1EE4AECF004B68E2 /* Serif.framework */; };
 		B5701E631EE4EF220081E7D0 /* FontDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E611EE4EF220081E7D0 /* FontDescriptor.swift */; };
@@ -96,6 +97,7 @@
 		B51FC89A1EE4AFCF004B68E2 /* TrueTypeDescriptor+Names.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TrueTypeDescriptor+Names.swift"; sourceTree = "<group>"; };
 		B51FC89B1EE4AFCF004B68E2 /* TrueTypeDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrueTypeDescriptor.swift; sourceTree = "<group>"; };
 		B51FC8A61EE4B02D004B68E2 /* CrossPlatformKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrossPlatformKit.framework; path = Infrastructure_Mac/Frameworks/Mac/CrossPlatformKit.framework; sourceTree = "<group>"; };
+		B5366AEA1EE6B4A30024297D /* DescriptorProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptorProtocols.swift; sourceTree = "<group>"; };
 		B5701E501EE4B3F10081E7D0 /* SerifTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SerifTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5701E521EE4B3F10081E7D0 /* SerifTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerifTests.swift; sourceTree = "<group>"; };
 		B5701E541EE4B3F10081E7D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -226,12 +228,12 @@
 			children = (
 				B51FC89B1EE4AFCF004B68E2 /* TrueTypeDescriptor.swift */,
 				B51FC8971EE4AFCF004B68E2 /* TrueTypeDescriptor+Header.swift */,
+				B51FC8991EE4AFCF004B68E2 /* TrueTypeDescriptor+Metrics.swift */,
 				B51FC8931EE4AFCF004B68E2 /* TrueTypeDescriptor+CharacterMap.swift */,
 				B51FC8961EE4AFCF004B68E2 /* TrueTypeDescriptor+Glyphs.swift */,
 				B51FC8941EE4AFCF004B68E2 /* TrueTypeDescriptor+Glyph.swift */,
 				B51FC8951EE4AFCF004B68E2 /* TrueTypeDescriptor+GlyphDrawing.swift */,
 				B51FC8981EE4AFCF004B68E2 /* TrueTypeDescriptor+Locations.swift */,
-				B51FC8991EE4AFCF004B68E2 /* TrueTypeDescriptor+Metrics.swift */,
 				B51FC89A1EE4AFCF004B68E2 /* TrueTypeDescriptor+Names.swift */,
 			);
 			name = TrueTypeDescriptor;
@@ -253,6 +255,7 @@
 				B5FB42D31EE5839C00397E4B /* Glyph.swift */,
 				B5701E671EE59F930081E7D0 /* Font.swift */,
 				B5701E611EE4EF220081E7D0 /* FontDescriptor.swift */,
+				B5366AEA1EE6B4A30024297D /* DescriptorProtocols.swift */,
 				B5701E621EE4EF220081E7D0 /* FontCollection.swift */,
 			);
 			name = Fonts;
@@ -426,6 +429,7 @@
 				B51FC89E1EE4AFCF004B68E2 /* TrueTypeDescriptor+Glyph.swift in Sources */,
 				B5FB42D41EE5839C00397E4B /* Glyph.swift in Sources */,
 				B5701E641EE4EF220081E7D0 /* FontCollection.swift in Sources */,
+				B5366AEB1EE6B4A30024297D /* DescriptorProtocols.swift in Sources */,
 				B51FC8A51EE4AFCF004B68E2 /* TrueTypeDescriptor.swift in Sources */,
 				B51FC8A01EE4AFCF004B68E2 /* TrueTypeDescriptor+Glyphs.swift in Sources */,
 				B51FC89F1EE4AFCF004B68E2 /* TrueTypeDescriptor+GlyphDrawing.swift in Sources */,

@@ -16,6 +16,8 @@ public class FontDescriptor {
 	
 	public var glyphs: GlyphCollection!
 	public var characterMap: CharacterMap!
+	public var metrics: DescriptorMetrics!
+	
 	public var bbox: CGRect { return .zero }
 	
 	public init(data: Data!, url: URL? = nil) {
@@ -27,9 +29,4 @@ public class FontDescriptor {
 		if url.pathExtension == "ttf" { return TrueTypeDescriptor(url: url) }
 		return nil
 	}
-}
-
-public protocol CharacterMap {
-	func map(cid: Int) -> Int?
-	func map(gid: Int) -> Int?
 }

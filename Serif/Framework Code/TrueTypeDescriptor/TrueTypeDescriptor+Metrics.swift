@@ -8,12 +8,14 @@
 
 import Foundation
 
+
+
 extension TrueTypeDescriptor {
-	public struct Metrics {
+	public struct TrueTypeMetrics: DescriptorMetrics {
 		let version: CGFloat
-		let ascent: Int16
-		let descent: Int16
-		let lineGap: Int16
+		public let ascent: Int
+		public let descent: Int
+		public let lineGap: Int
 		let advancedWidthMax: UInt16
 		let minLeftsideBearing: Int16
 		let minRightSideBearing: Int16
@@ -29,9 +31,9 @@ extension TrueTypeDescriptor {
 			var bytes = headerTable.parser
 			
 			self.version = CGFloat(try bytes.nextFixed())
-			self.ascent = try bytes.nextInt16()
-			self.descent = try bytes.nextInt16()
-			self.lineGap = try bytes.nextInt16()
+			self.ascent = Int(try bytes.nextInt16())
+			self.descent = Int(try bytes.nextInt16())
+			self.lineGap = Int(try bytes.nextInt16())
 			self.advancedWidthMax = try bytes.nextUInt16()
 			self.minLeftsideBearing = try bytes.nextInt16()
 			self.minRightSideBearing = try bytes.nextInt16()
