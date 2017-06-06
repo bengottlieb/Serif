@@ -41,6 +41,7 @@
 		B5701E641EE4EF220081E7D0 /* FontCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E621EE4EF220081E7D0 /* FontCollection.swift */; };
 		B5701E681EE59F930081E7D0 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E671EE59F930081E7D0 /* Font.swift */; };
 		B5701E6B1EE5A6940081E7D0 /* ByteArrayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5701E6A1EE5A6940081E7D0 /* ByteArrayParser.swift */; };
+		B5E247021EE6E969002767AA /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E247011EE6E969002767AA /* LabelView.swift */; };
 		B5FB42D41EE5839C00397E4B /* Glyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FB42D31EE5839C00397E4B /* Glyph.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		B5701E621EE4EF220081E7D0 /* FontCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontCollection.swift; sourceTree = "<group>"; };
 		B5701E671EE59F930081E7D0 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B5701E6A1EE5A6940081E7D0 /* ByteArrayParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteArrayParser.swift; sourceTree = "<group>"; };
+		B5E247011EE6E969002767AA /* LabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		B5FB42D31EE5839C00397E4B /* Glyph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Glyph.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				B51FC8881EE4AFC2004B68E2 /* GlyphView.swift */,
+				B5E247011EE6E969002767AA /* LabelView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				B51FC88A1EE4AFC2004B68E2 /* FontWindowController.swift in Sources */,
 				B51FC88E1EE4AFC2004B68E2 /* GlyphWindowController.swift in Sources */,
 				B51FC8891EE4AFC2004B68E2 /* FontWindowController+CollectionView.swift in Sources */,
+				B5E247021EE6E969002767AA /* LabelView.swift in Sources */,
 				B51FC8731EE4AF71004B68E2 /* ViewController.swift in Sources */,
 				B51FC8711EE4AF71004B68E2 /* AppDelegate.swift in Sources */,
 			);
